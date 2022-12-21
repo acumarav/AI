@@ -6,7 +6,7 @@ import java.util.List;
 public class Vertex {
     private final String name;
     private boolean visited;
-    private List<Vertex> ajacencyList;
+    private final List<Vertex> ajacencyList;
 
     public Vertex(String name) {
         this.name = name;
@@ -22,12 +22,12 @@ public class Vertex {
         return visited;
     }
 
-    public List<Vertex> getAdjacencyList() {
-        return ajacencyList;
-    }
-
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+
+    public List<Vertex> getAdjacencyList() {
+        return ajacencyList;
     }
 
     public void addNeighbor(Vertex vertex) {

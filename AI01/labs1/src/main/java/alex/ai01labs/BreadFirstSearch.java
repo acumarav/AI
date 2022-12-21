@@ -6,23 +6,7 @@ import java.util.Queue;
 
 public class BreadFirstSearch {
 
-    public void traverse(Vertex root) {
-        Queue<Vertex> queue = new LinkedList<>();
-        root.setVisited(true);
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            var actualVertex = queue.remove();
-            System.out.println("Visiting: " + actualVertex);
-            for (Vertex v : actualVertex.getAdjacencyList())
-                if (!v.isVisited()) {
-                    v.setVisited(true);
-                    queue.add(v);
-                }
-        }
-    }
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         BreadFirstSearch bfs = new BreadFirstSearch();
 
         Vertex a = new Vertex("A");
@@ -54,5 +38,21 @@ public class BreadFirstSearch {
 
         bfs.traverse(a);
         // Expected order: "A" -> "B" -> "F" -> "G" -> "C" -> "D" -> "H" -> "E"
+    }
+
+    public void traverse(Vertex root) {
+        Queue<Vertex> queue = new LinkedList<>();
+        root.setVisited(true);
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            var actualVertex = queue.remove();
+            System.out.println("Visiting: " + actualVertex);
+            for (Vertex v : actualVertex.getAdjacencyList())
+                if (!v.isVisited()) {
+                    v.setVisited(true);
+                    queue.add(v);
+                }
+        }
     }
 }

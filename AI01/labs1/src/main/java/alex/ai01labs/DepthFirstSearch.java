@@ -5,35 +5,9 @@ import java.util.Stack;
 
 public class DepthFirstSearch {
 
-    private final Stack<Vertex> stack= new Stack<>();
-    public void traverse(Vertex root) {
-    }
+    private final Stack<Vertex> stack = new Stack<>();
 
-    public void dfs(List<Vertex> vertexList){
-        //it may happen that we have independent clusters
-        for(Vertex v: vertexList){
-            if(!v.isVisited()){
-                v.setVisited(true);
-                dfsHelper(v);
-            }
-        }
-    }
-
-    private void dfsHelper(Vertex rootVertex) {
-        stack.add(rootVertex);
-        rootVertex.setVisited(true);
-        while (!stack.isEmpty()){
-            var actualVertex = stack.pop();
-            System.out.println(actualVertex);
-            for (Vertex v: actualVertex.getAdjacencyList())
-                if(!v.isVisited()){
-                    v.setVisited(true);
-                    stack.add(v);
-                }
-        }
-    }
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Vertex a = new Vertex("A");
         Vertex b = new Vertex("B");
         Vertex c = new Vertex("C");
@@ -63,5 +37,32 @@ public class DepthFirstSearch {
 
         DepthFirstSearch dfs = new DepthFirstSearch();
         dfs.traverse(a);
+    }
+
+    public void traverse(Vertex root) {
+    }
+
+    public void dfs(List<Vertex> vertexList) {
+        //it may happen that we have independent clusters
+        for (Vertex v : vertexList) {
+            if (!v.isVisited()) {
+                v.setVisited(true);
+                dfsHelper(v);
+            }
+        }
+    }
+
+    private void dfsHelper(Vertex rootVertex) {
+        stack.add(rootVertex);
+        rootVertex.setVisited(true);
+        while (!stack.isEmpty()) {
+            var actualVertex = stack.pop();
+            System.out.println(actualVertex);
+            for (Vertex v : actualVertex.getAdjacencyList())
+                if (!v.isVisited()) {
+                    v.setVisited(true);
+                    stack.add(v);
+                }
+        }
     }
 }
