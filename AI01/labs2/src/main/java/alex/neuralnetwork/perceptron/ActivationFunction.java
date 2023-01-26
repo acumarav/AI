@@ -1,6 +1,5 @@
 package alex.neuralnetwork.perceptron;
 
-//@FunctionalInterface
 public class ActivationFunction {
 
     public static float apply(float x) {
