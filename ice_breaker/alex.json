@@ -1,0 +1,434 @@
+{
+	"public_identifier": "alex-cumarav-93ab1010",
+	"profile_pic_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/person/alex-cumarav-93ab1010/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20230913%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20230913T062042Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8dde327e6e684e21c981fbd4ad4d9544a12f8d667b446ad0c011829603b7cffe",
+	"background_cover_image_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/person/alex-cumarav-93ab1010/cover?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20230913%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20230913T062042Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6d36ac489797dcb46b6692d103130ab65693aee9ebdd302020034ed5949ed58e",
+	"first_name": "Alex",
+	"last_name": "Cumarav",
+	"full_name": "Alex Cumarav",
+	"follower_count": null,
+	"occupation": "Full Stack Engineer, Development lead at InnerWorkings",
+	"headline": "Senior Java and Javascript Developer",
+	"summary": "10+ years in well known international companies. Number of successfully completed projects for customers from Europe, US, Israel and Australia. Expertise in wide range of the newest technologies and platforms. Productive and motivated engineer with the strong analytical skills and solid backgroud. \\n\\nJava: 6 yrs \\n\\n.Net Framework 2 3 4\\nC#, VB.Net 8 yrs\\n\\nTechnologies:\\nJava, Spring Framework, Tomcat,\\nJavascript Es5 Es6, AngularJs, Knockout, React\\nMaven\\nLINQ, WPF, Silverlight\\nHibernate, nHibernate, fluent Hibernate, Entity Framework, JPA, JDBC, ADO.Net\\nServlets, Spring, ASP.Net, ASP.Net MVC, MsBuild\\nFreemarker, Thymeleaf\\nJUnit, JMockit, Mockito, Rhino mocks, NUnit, mbUnit\\nSOAP/REST/WSDL, CXF/JAX-WS/JAX-RS, WCF, Biztalk\\nDOM/SAX/STAX/XML/XSLT/XPATH \\nJMS/RabbitMQ \\njQuery, ExtJS, JavaScript, Rich Client Application, HTML, CSS\\nBambo, Jenkins, CC.Net, Teamcity\\nJira\\nJava 6, Java 7\\nWeb Server | Client development\\n\\nDatabase:\\n-MS SQL Server 6 yrs.\\n-Oracle 4 yr\\n\\nApplications servers:\\nTomcat \\nIIS\\n\\nOperating Systems:\\nLinux\\nWindows\\n\\n\\nIDE:\\nIntelliJ IDEA \\nVisual Studio 6,2003,2005,2008,2010 | Resharper\\n\\nProject management :\\nestimations, planning and managing through whole development cycle, Scrum master\\nDevelopment for healthcare industry",
+	"country": "CZ",
+	"country_full_name": "Czech Republic",
+	"city": null,
+	"state": "Hlavn\\u00ed m\\u011bsto Praha",
+	"experiences": [{
+		"starts_at": {
+			"day": 1,
+			"month": 11,
+			"year": 2017
+		},
+		"ends_at": null,
+		"company": "InnerWorkings",
+		"company_linkedin_profile_url": "https://cz.linkedin.com/company/innerworkings",
+		"title": "Full Stack Engineer, Development lead",
+		"description": "Set up new development team in Prague for marketing platform VALO Procure v2",
+		"location": "Prague, The Capital, Czech Republic",
+		"logo_url": "https://media-exp1.licdn.com/dms/image/C4E0BAQFlx4TW22aVbg/company-logo_100_100/0/1594846142597?e=1660176000&v=beta&t=7tamA1x8B4-OyY9UzvLvp2OOHiOA9VBaLFnna5-H3vk"
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 10,
+			"year": 2016
+		},
+		"ends_at": {
+			"day": 30,
+			"month": 11,
+			"year": 2017
+		},
+		"company": "Self-Employed",
+		"company_linkedin_profile_url": "https://cz.linkedin.com/company/conscience-vc",
+		"title": "Software Engineer",
+		"description": "Video Virtualization engine for Australian start-up Linius.com \\nI have developed client side mpeg-dash converter,  integrate it with google shaka player and build few products based on this technology:  VVEPlay, VCMS for Village Roadshow, set of demo applications",
+		"location": "Czech Republic",
+		"logo_url": "https://media-exp1.licdn.com/dms/image/C560BAQH3Wh-aQGfZ4g/company-logo_100_100/0/1622161936313?e=1660176000&v=beta&t=HIt6JYY41ZYU-5LEVV34KgHzR6LyFnAboKISehRyZnM"
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 10,
+			"year": 2013
+		},
+		"ends_at": {
+			"day": 30,
+			"month": 11,
+			"year": 2016
+		},
+		"company": "Barclays Investment Bank",
+		"company_linkedin_profile_url": "https://cz.linkedin.com/company/barclays-corporate-and-investment-bank",
+		"title": "Senior Java and C# Developer",
+		"description": "Development of Convertible Trade Bond System:\\n- implement new features requested by the desk traders\\n- re-implement legacy components using the latest technologies\\n- integrate the CBTS with the other bank systems",
+		"location": "Prague, The Capital, Czech Republic",
+		"logo_url": "https://media-exp1.licdn.com/dms/image/C4D0BAQH-8Gt3eY_kVw/company-logo_100_100/0/1525982494626?e=1660176000&v=beta&t=s6luD7GcnHtvyIL2_ZTvwJYxLn3DQ-B_JYOZbrJamS0"
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 12,
+			"year": 2011
+		},
+		"ends_at": {
+			"day": 30,
+			"month": 9,
+			"year": 2013
+		},
+		"company": "KIT digital",
+		"company_linkedin_profile_url": "https://cz.linkedin.com/company/kit-digital-inc",
+		"title": "Senior Software Engineer, Java",
+		"description": "Due to internal circumstances managers offer us opportunity to switch to Java technology. I was working on the implementation of enterprise-scale Video on Demand platform. It was new project so I was able to touch and learn each and every java technology which we used: Java 7, Hibernate, Spring Framework, Sorl, Oracle Database, JAX-WS/JAX-RS services, Freemarker,  ExtJS, Linux, Tomcat, Number of Java test frameworks( mockito, jmockit, easymocks) . \\nIt was fantastic experience to apply all my previous knowledge to the new platform which I really enjoy.",
+		"location": "Prague, The Capital, Czech Republic",
+		"logo_url": "https://media-exp1.licdn.com/dms/image/C560BAQH_7VRmDJAaAA/company-logo_100_100/0/1519903010884?e=1660176000&v=beta&t=Xjjs4PO5yuaBIuyuMHtedolPaxGh2D3C9Ln0xjffsyM"
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 3,
+			"year": 2011
+		},
+		"ends_at": {
+			"day": 30,
+			"month": 11,
+			"year": 2011
+		},
+		"company": "KIT digital",
+		"company_linkedin_profile_url": "https://cz.linkedin.com/company/kit-digital-inc",
+		"title": "Senior software engineer, C#",
+		"description": "Development of scalable Video Content Management Platform suitable for tier one operators. Technologically saturated product: rich client app, SOA ,indexing, recommendations, scaling, SQL, no-SQL, SOAP, CDN, billing, linux, silverlight, java, .net, streaming, javascript, solr.",
+		"location": "Prague, The Capital, Czech Republic",
+		"logo_url": "https://media-exp1.licdn.com/dms/image/C560BAQH_7VRmDJAaAA/company-logo_100_100/0/1519903010884?e=1660176000&v=beta&t=Xjjs4PO5yuaBIuyuMHtedolPaxGh2D3C9Ln0xjffsyM"
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 10,
+			"year": 2008
+		},
+		"ends_at": {
+			"day": 28,
+			"month": 2,
+			"year": 2011
+		},
+		"company": "Monster Technologies",
+		"company_linkedin_profile_url": "https://cz.linkedin.com/company/monster-technologies",
+		"title": ".Net senior developer",
+		"description": "Technologies: Asp.Net webforms, Asp.net MVC, C#, JavaScript, jQuery, MS SQL, Web Services, UML, Enterprise Architect, WCF 3.5, Business Objects Reporting Services\\n\\nNumber of different projects for the Monster Recruitment Portal. Monster Portal available in more that 50 countries so portal operates  under extremely high load. Working in the such a big company gave me priceless experience of the problems and solutions of global enterprise applications. I am working mostly on recruiters part of the portal.",
+		"location": "Czech Republic",
+		"logo_url": null
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 11,
+			"year": 2004
+		},
+		"ends_at": {
+			"day": 30,
+			"month": 9,
+			"year": 2008
+		},
+		"company": "ScienceSoft",
+		"company_linkedin_profile_url": "https://cz.linkedin.com/company/sciencesoft",
+		"title": "Architect/LeadDeveloper",
+		"description": "4+ years of hard work in .Net software development. Growing from junior to architect position. Number of successfully completed projects for customers from US, Europe, Australia, Israel",
+		"location": null,
+		"logo_url": "https://media-exp1.licdn.com/dms/image/C4E0BAQGCslDXNZm5sA/company-logo_100_100/0/1519856065388?e=1660176000&v=beta&t=LWWgzeVfMQSl34pgGu9wUsUhhykpVDoI1XS3SFN15O0"
+	}],
+	"education": [{
+		"starts_at": {
+			"day": 1,
+			"month": 1,
+			"year": 1998
+		},
+		"ends_at": {
+			"day": 31,
+			"month": 12,
+			"year": 2004
+		},
+		"field_of_study": "Engeneering of computer systems and networks",
+		"degree_name": "System Analyst",
+		"school": "Belarusian State University of Informatics and Radioelectronics",
+		"school_linkedin_profile_url": null,
+		"description": "Learning electronic and IT areas starting from circuit minimization, semiconductors devices and assembler programming",
+		"logo_url": null,
+		"grade": null,
+		"activities_and_societies": null
+	}],
+	"languages": ["English", "Czech", "Belarusian", "Russian"],
+	"accomplishment_organisations": [],
+	"accomplishment_publications": [],
+	"accomplishment_honors_awards": [],
+	"accomplishment_patents": [],
+	"accomplishment_courses": [{
+		"name": "Coursera R programming",
+		"number": "-"
+	}],
+	"accomplishment_projects": [{
+		"starts_at": {
+			"day": 1,
+			"month": 10,
+			"year": 2013
+		},
+		"ends_at": null,
+		"title": "Convertible Bond Trading System",
+		"description": "Barclays Convertible Bond Trading System\\nBusiness tier is in Java, presentation is the WinForm / WPF / Web applicaton",
+		"url": null
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 11,
+			"year": 2011
+		},
+		"ends_at": {
+			"day": 30,
+			"month": 9,
+			"year": 2013
+		},
+		"title": "Kit Cosmos platform",
+		"description": "Enterprise scale platform for managing and delivery of the video content. Supporting full range on user devices (PC, Tables, Smartphones, set-top boxes, game consoles and so on). Platform integrated with digital right management system, CDN, video transcoding and ingestion module, billing, and number of the other components.\\nI was working on VoD Portal which it the most complex and loaded part as it handles thousands of users, contains main business logic of the system and integrated with all other sub-systems which we use. Also I was involved in indexing service implementation based on Solr engine and Customer Care portal development which is complex java script appliacation build via ExtJS framework.\\n\\nTechnologies: java 7, Spring Framework, Freemarker, JAX-WS/JAX-RS services, Maven, Oracle, ExtJS, Silverlight, MongoDB, Linux, jQuery, Hibernate, Solr",
+		"url": "http://www.piksel.com/products/"
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 3,
+			"year": 2011
+		},
+		"ends_at": {
+			"day": 30,
+			"month": 9,
+			"year": 2013
+		},
+		"title": "NGP (New Generation Platform)",
+		"description": "Video content management system: video asset ingestion and transcoding, publishing, billing, building schedules for broadcasting, publishing EPGs. This new platform was targeted to replace number of legacy projects as part of KIT Cosmos platform.\\nI was involved as back-end developer, presentation tier was implemented in Abode Flex by UX team. My main commitments was implementation of complex persistence framework which allows to extend base domain entities with custom configurable properties, EPG ingestion via biztalk workflow, also I developed kind of domain specific language which allows to automate video ingestion process and content matching engine which allows to generate dynamic playlists by configurable criteria.\\n\\nTechnologies: .Net, C# 4, WCF 4, SOA, Fluent-NHibernate, MS SQL, Biztalk",
+		"url": null
+	}],
+	"accomplishment_test_scores": [],
+	"volunteer_work": [],
+	"certifications": [{
+		"starts_at": {
+			"day": 1,
+			"month": 6,
+			"year": 2010
+		},
+		"ends_at": null,
+		"name": "Microsoft Certified Professional Developer",
+		"license_number": "B873-7326",
+		"display_source": null,
+		"authority": "Microsoft | Prometrics",
+		"url": null
+	}, {
+		"starts_at": {
+			"day": 1,
+			"month": 7,
+			"year": 2008
+		},
+		"ends_at": null,
+		"name": "Microsoft Certified Technology Specialist",
+		"license_number": "B837-7327",
+		"display_source": null,
+		"authority": "Microsoft | Prometrics",
+		"url": null
+	}],
+	"connections": 305,
+	"people_also_viewed": [{
+		"link": "https://cz.linkedin.com/in/boris-kneschke-49a9711bb",
+		"name": "Boris Kneschke",
+		"summary": "Software QA Engineer ve spole\\u010dnosti Broadcom Inc.",
+		"location": "Praha"
+	}, {
+		"link": "https://cz.linkedin.com/in/aliaksei-kisialev-412131b9",
+		"name": "Aliaksei Kisialev",
+		"summary": "Software Engineer - First Line Software",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://cz.linkedin.com/in/vitaliy-holovka-19854364",
+		"name": "Vitaliy Holovka",
+		"summary": "Web Developer at First Line Software",
+		"location": "Praha - metropolitn\\u00ed oblast"
+	}, {
+		"link": "https://cz.linkedin.com/in/margarita-salimova-190241116",
+		"name": "Margarita Salimova",
+		"summary": "Junior Marketing at Sallimar group s.r.o",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://ru.linkedin.com/in/mariadyachkova",
+		"name": "Maria Dyachkova",
+		"summary": "HR manager",
+		"location": "Sankt Peterburg"
+	}, {
+		"link": "https://cz.linkedin.com/in/marie-mitick%C3%A1-874440a1",
+		"name": "Marie Mitick\\u00e1",
+		"summary": "Financial and payroll accountant",
+		"location": "\\u010cesko"
+	}, {
+		"link": "https://by.linkedin.com/in/darya-kosareva-b8a659b7",
+		"name": "Darya Kosareva",
+		"summary": "Medical Data Analyst",
+		"location": "B\\u011blorusko"
+	}, {
+		"link": "https://ua.linkedin.com/in/polina-talapova-928328147",
+		"name": "Polina Talapova",
+		"summary": "PHD Graduate Student at Kharkiv National Medical University",
+		"location": "Ukrajina"
+	}, {
+		"link": "https://in.linkedin.com/in/morlamanideeps-goud-38337616a",
+		"name": "Morlamanideeps Goud",
+		"summary": "Licmarketing executive and lido learning bussiness development associate",
+		"location": "Krishna"
+	}, {
+		"link": "https://www.linkedin.com/in/david-fisher-b496064",
+		"name": "David Fisher",
+		"summary": "Chief Executive Officer at Enova International",
+		"location": "Chicago, IL"
+	}, {
+		"link": "https://www.linkedin.com/in/ericbelcher2019",
+		"name": "Eric Belcher",
+		"summary": "CEO at Numerator",
+		"location": "Chicago a okol\\u00ed"
+	}, {
+		"link": "https://www.linkedin.com/in/armeltalla",
+		"name": "Armel Talla",
+		"summary": "STEP Intern @ Google | CS + Math @ UT Austin",
+		"location": "Austin, TX"
+	}, {
+		"link": "https://pl.linkedin.com/in/%C5%82ukasz-malinowski-18989412b",
+		"name": "\\u0141ukasz Malinowski",
+		"summary": "Senior Java Developer w InnerWorkings",
+		"location": "Krakov a okol\\u00ed"
+	}, {
+		"link": "https://cz.linkedin.com/in/simona-pecharova",
+		"name": "Simona Pecharov\\u00e1",
+		"summary": "...",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://cz.linkedin.com/in/tatiana-astapova-a1b84593",
+		"name": "Tatiana Astapova",
+		"summary": "Currently on maternity leave \\nSenior Software Engineer at InnerWorkings",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://lu.linkedin.com/in/konstantinos-germanos-7311b6a6",
+		"name": "Konstantinos Germanos",
+		"summary": "Global Information Technology Administrator at SaarGummi Group",
+		"location": "Lucemburk"
+	}, {
+		"link": "https://www.linkedin.com/in/jonminion",
+		"name": "Jon Minion",
+		"summary": "Agent of Change | Driving Growth for Small Businesses | Zero Bull Philosophy",
+		"location": "St. Augustine, FL"
+	}, {
+		"link": "https://cz.linkedin.com/in/jirkastraka",
+		"name": "Ji\\u0159\\u00ed Straka",
+		"summary": "Senior Front End / Full Stack Web Developer with 10 years of experience | C#, .NET, ASP.NET Core, EF Core, TypeScript, Angular, SQL, SQL Server",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://cz.linkedin.com/in/pavelgalaktionov",
+		"name": "Pavel Galaktionov",
+		"summary": "Full Stack Engineer at Fortuna Entertainment Group",
+		"location": "\\u010cesko"
+	}, {
+		"link": "https://cz.linkedin.com/in/pohy",
+		"name": "David Pohan",
+		"summary": "Engineer and a musician",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://cz.linkedin.com/in/andreyshedko",
+		"name": "Andrey Shedko",
+		"summary": "Senior Software Engineer \\u2013 Broadcom Inc.",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://bg.linkedin.com/in/angel-kitov-038abb98",
+		"name": "Angel Kitov",
+		"summary": "IT professional",
+		"location": "Bulharsko"
+	}, {
+		"link": "https://nl.linkedin.com/in/denis-kralj-26b56a87",
+		"name": "Denis Kralj",
+		"summary": "Software Engineer at Cimpress",
+		"location": "Nizozemsko"
+	}, {
+		"link": "https://www.linkedin.com/in/wassam-ashraf-404368109",
+		"name": "Wassam Ashraf",
+		"summary": "System Engineer at BGRS",
+		"location": "Lombard, IL"
+	}, {
+		"link": "https://cz.linkedin.com/in/anna-marchenko-5ab82152",
+		"name": "Anna Marchenko",
+		"summary": "Service Transition and DevOps agent \\u2013 MSD",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}, {
+		"link": "https://www.linkedin.com/in/matt-gretencord-ba62447",
+		"name": "Matt Gretencord",
+		"summary": "D365 Technical Analyst - Mizkan",
+		"location": "Osceola, IN"
+	}, {
+		"link": "https://www.linkedin.com/in/troy-jackson-36a8518",
+		"name": "Troy Jackson",
+		"summary": "Software Engineer at InnerWorkings",
+		"location": "Chicago a okol\\u00ed"
+	}, {
+		"link": "https://cz.linkedin.com/in/salplachta",
+		"name": "Ondrej Salplachta",
+		"summary": "Principal Software Engineering Manager at Microsoft",
+		"location": "Jihomoravsk\\u00fd, \\u010cesko"
+	}, {
+		"link": "https://cz.linkedin.com/in/tom%C3%A1%C5%A1-ma%C5%A1evsk%C3%BD-997a851a7",
+		"name": "Tom\\u00e1\\u0161 Ma\\u0161evsk\\u00fd",
+		"summary": "Full Stack Engineer at GitLab Inc.",
+		"location": "Ostrava-m\\u011bsto"
+	}, {
+		"link": "https://cz.linkedin.com/in/dina-sushkova",
+		"name": "Dina Sushkova",
+		"summary": "Full Stack Developer at Salsita Software",
+		"location": "Praha"
+	}, {
+		"link": "https://cz.linkedin.com/in/jakub-steinbauer-09b3838",
+		"name": "Jakub Steinbauer",
+		"summary": "dev lead at travelWorld",
+		"location": "\\u010cesko"
+	}, {
+		"link": "https://cz.linkedin.com/in/kubicek-jan-97a129b1",
+		"name": "Kubicek Jan",
+		"summary": "Full Stack Engineer at FTMO",
+		"location": "Hlavn\\u00ed m\\u011bsto Praha, \\u010cesko"
+	}],
+
+	"similarly_named_profiles": [],
+	"articles": [],
+	"groups": [{
+		"profile_pic_url": "https://static-exp1.licdn.com/sc/h/4h1ldzvvebtszyx75ve7dst1v",
+		"name": "Algorithms (O)",
+		"url": "https://www.linkedin.com/groups/1920463"
+	}, {
+		"profile_pic_url": "https://media-exp1.licdn.com/dms/image/C4E07AQFMzmji-J6i1Q/group-logo_image-shrink_92x92/0/1548033106357?e=1652389200&v=beta&t=W7HHkDOF7OqcFl49nKiEHkWFwapBxqN_6jXLFiHlbpg",
+		"name": "Software Testing & Automation",
+		"url": "https://www.linkedin.com/groups/55636"
+	}, {
+		"profile_pic_url": "https://media-exp1.licdn.com/dms/image/C4E07AQHIbj0ELKRZag/group-logo_image-shrink_92x92/0/1633370639965?e=1652389200&v=beta&t=flPhIjGPARr0awb4j3DJfr5zYbx10hZrWYWtsHPQlxA",
+		"name": ".NET Developers",
+		"url": "https://www.linkedin.com/groups/40949"
+	}, {
+		"profile_pic_url": "https://media-exp1.licdn.com/dms/image/C5107AQG9ixx4MC0Y5g/group-logo_image-shrink_200x200/0/1631428540869?e=1652389200&v=beta&t=RJC9p0vK0sgFlU-dfGrMcVMkgQwAI8VAG3TOnan_UuM",
+		"name": "Test Management",
+		"url": "https://www.linkedin.com/groups/2061802"
+	}, {
+		"profile_pic_url": "https://media-exp1.licdn.com/dms/image/C4D07AQFKyLyPX56eXw/group-logo_image-shrink_200x200/0/1631358318544?e=1652389200&v=beta&t=JWKp0Bg8wohyq2iy2bEtypz7aT2v-bvdLtyyLSWniGs",
+		"name": "HackerX",
+		"url": "https://www.linkedin.com/groups/6978748"
+	}, {
+		"profile_pic_url": "https://media-exp1.licdn.com/dms/image/C4D07AQHX-GY93J88ug/group-logo_image-shrink_92x92/0/1525123465678?e=1652389200&v=beta&t=BVLAnMIeKx0a26MrnMgAgzhhQAjHO6gA-v-5gUjveKY",
+		"name": "React Developers - ReactJS & React Native Professional Development Mastermind",
+		"url": "https://www.linkedin.com/groups/6519652"
+	}, {
+		"profile_pic_url": "https://media-exp1.licdn.com/dms/image/C4D07AQGMaF-KcuiUOw/group-logo_image-shrink_92x92/0/1637071355411?e=1652389200&v=beta&t=x1ILpUL7vVaWD7Pfy97E02M-CjElI1SUFd2dA6893fo",
+		"name": "Java Developers Community (moderated)",
+		"url": "https://www.linkedin.com/groups/3983267"
+	}, {
+		"profile_pic_url": "https://media-exp1.licdn.com/dms/image/C4D07AQH3XVO_VOc2Og/group-logo_image-shrink_200x200/0/1631367059439?e=1652389200&v=beta&t=G8bywGVlvRhluOQvFtpDQCIm9nvSQ-Sq9V6-NNMbZvk",
+		"name": "Java Developers",
+		"url": "https://www.linkedin.com/groups/70526"
+	}],
+	"skills": [],
+	"inferred_salary": null,
+	"gender": null,
+	"birth_date": null,
+	"industry": null,
+	"extra": null,
+	"interests": [],
+	"personal_emails": [],
+	"personal_numbers": []
+}
