@@ -18,7 +18,7 @@ def scrape_linkedin_profile_real(linkedin_profile_url: str):
     return clean_response(response)
 
 
-def scrape_linkenin_profile_stub(unused_url: str):
+def scrape_linkedin_profile_stub(unused_url: str):
     stub_endpoint = "https://gist.githubusercontent.com/cumarav/fcaaac37bf928b13c051d304db9be018/raw/e5e97eed186f334351896d6e591f5ed5decca0e8/alex.json"
     response = requests.get(stub_endpoint)
     return clean_response(response)
