@@ -12,9 +12,10 @@ pinecone.init(
 
 
 def ingest_docs() -> None:
-    loader = ReadTheDocsLoader(path="langchain-docs/langchain.readthedocs.io/en/latest")
+    loader = ReadTheDocsLoader(path="langchain-docs/api.python.langchain.com/en/reduced")
     raw_documents = loader.load()
-    print(f"loaded {len(raw_documents) }documents")
+    print(f"loaded {len(raw_documents) } documents")
+  #  exit(0)
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000, chunk_overlap=100, separators=["\n\n", "\n", " ", ""]
     )
@@ -35,4 +36,5 @@ def ingest_docs() -> None:
 
 
 if __name__ == "__main__":
+    print(f"API KEY: {(os.environ['PINECONE_API_KEY'])}")
     ingest_docs()
