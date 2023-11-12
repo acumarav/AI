@@ -109,6 +109,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+faiss_index**/
+apiml_docs/
+langchain-docs/
+mediumblogs/
 
 # Spyder project settings
 .spyderproject

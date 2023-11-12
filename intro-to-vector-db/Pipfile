@@ -11,6 +11,10 @@ tiktoken = "*"
 faiss-cpu = "*"
 openai = "*"
 weaviate-client = "*"
+psycopg2-binary = "*"
+beautifulsoup4 = "*"
+unstructured = "*"
+markdown = "*"
 
 [dev-packages]
 
