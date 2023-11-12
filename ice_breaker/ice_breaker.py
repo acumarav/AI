@@ -51,6 +51,7 @@ def ice_break(name: str, real_mode: bool) -> Tuple[PersonIntel, str]:
 if __name__ == "__main__":
     print("Hello LangChain!")
     # result = ice_break(name="Eden Marco Udemy")
-    result, pic_url = ice_break(name="Harrison Chase", real_mode=False)
+    result, pic_url = ice_break(name="Michael Patriarco Broadcom", real_mode=True)
+    # result, pic_url = ice_break(name="Harrison Chase", real_mode=False)
     print("Pic URL: " + pic_url)
     print("the end!")
