@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "466d7a30073033185df27c1464bbf218808608efd429bbf9d257604f9a9a8681"
+            "sha256": "90779bbbfe4501fe136f0400543aa62fabcd76530c3e6bd970c15cf155859df5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -176,6 +176,7 @@
                 "sha256:9b469f3a900bf28dc19b8cfbf8019bf47f7fdd1a65a1d4ffb98fc14166beb4d1",
                 "sha256:e036ab49d5b79556f99cfc2d9320b34cfbe5be05c5871b51de9329f0603b0474"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.6'",
             "version": "==2023.11.17"
         },
@@ -644,12 +645,12 @@
         },
         "langchain": {
             "hashes": [
-                "sha256:56903ea5d5ef4cd71c210b9a0556cca8691681b641e50dbc9b78292a585c8c49",
-                "sha256:935bca0e35f760d68c8f0c6febbca8f0079ffcba665e2db1d199c9447ebe1a62"
+                "sha256:c928cceca770b5c62b48024de163aaca5ca0539b613e7726369f2671e2934e80",
+                "sha256:d9fa750f01f99c0ce04bfac4c614a142702f7b7715928c6db74ea80f4514d3dd"
             ],
             "index": "pypi",
             "markers": "python_version < '4.0' and python_full_version >= '3.8.1'",
-            "version": "==0.0.337"
+            "version": "==0.0.338"
         },
         "langdetect": {
             "hashes": [
@@ -958,6 +959,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==0.11.2"
+        },
+        "pgvector": {
+            "hashes": [
+                "sha256:9d53dc01138ecc7c9aca64e4680cfa9edf4c38f9cb8ed7098317871fdd211824"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==0.2.3"
         },
         "pinecone-client": {
             "hashes": [

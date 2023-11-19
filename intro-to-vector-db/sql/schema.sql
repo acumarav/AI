@@ -7,7 +7,7 @@ create table public.document(
   id serial primary key,
   file_path varchar(512) not null,
   content text not null,
-  embeded vector(1536)
+  embedded vector(1536)
 );
 
 
