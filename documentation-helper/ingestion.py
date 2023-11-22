@@ -1,40 +1,69 @@
 import os
-from langchain.document_loaders import ReadTheDocsLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Pinecone
-import pinecone
+from typing import List
+from sqlmodel import Session, select, SQLModel
 
-pinecone.init(
-    api_key=os.environ["PINECONE_API_KEY"],
-    environment=os.environ["PINECONE_ENVIRONMENT_REGION"],
-)
+from langchain.document_loaders import UnstructuredMarkdownLoader
+from langchain.document_loaders import DirectoryLoader
+from langchain.text_splitter import MarkdownTextSplitter
+
+from langchain.docstore.document import Document as LangDocument
+
+from sql.models import  engine, init_db, Document as PgDocument
+from openai import OpenAI
+
+EMBEDDINGS_MODEL = "text-embedding-ada-002"
+
+def get_documents() -> List:
+    output = []
+    with Session(engine) as session:
+        statement = select(PgDocument)
+        res = session.exec(statement)
+        for pr in res:
+            output.append(pr)
+    return output
+
+def write_document(document: PgDocument):
+    with Session(engine) as session:
+        session.add(document)
+        session.commit()
 
 
-def ingest_docs() -> None:
-    loader = ReadTheDocsLoader(path="langchain-docs/api.python.langchain.com/en/reduced")
-    raw_documents = loader.load()
-    print(f"loaded {len(raw_documents) } documents")
-  #  exit(0)
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=100, separators=["\n\n", "\n", " ", ""]
+def print_documents():
+    docs = get_documents()
+    for doc in docs:
+        print(f" ID:{doc.id}, path: {doc.file_path}, vec: {doc.embedded}")
+
+def index_documents():
+    ai_api_key = os.environ["OPENAI_API_KEY"]
+    client = OpenAI(api_key=ai_api_key)
+    print(f"\napi key={ai_api_key}")
+
+    loader = DirectoryLoader(
+        "./apiml_docs", glob="**/*.md", loader_cls=UnstructuredMarkdownLoader
     )
-    documents = text_splitter.split_documents(documents=raw_documents)
-    print(f"Splitted into {len(documents)} chunks")
+    my_documents = loader.load()
+    print(f"Found {len(my_documents)} documents")
+    text_splitter = MarkdownTextSplitter(chunk_size=2000, chunk_overlap=200)
+    texts = text_splitter.split_documents(my_documents)
+    print(f"Produced {len(texts)} chunks to embed")
+    for doc in texts:
+        unsaved_doc = embed_one_document(doc, client=client)
+        write_document(unsaved_doc)
 
-    for doc in documents:
-        old_path = doc.metadata["source"]
-        new_url = old_path.replace("langchain-docs", "https:/")
-        doc.metadata.update({"source": new_url})
 
-    print(f"Going to insert {len(documents)} to Pinecone")
-    embeddings = OpenAIEmbeddings()
-    Pinecone.from_documents(
-        documents, embeddings, index_name="langchain-doc-index"
-    )
-    print("****** Added to Pinecone vectorstore vectors")
-
+def embed_one_document(lang_doc: LangDocument, client: OpenAI) -> PgDocument:
+    new_document = PgDocument()
+    new_document.file_path = lang_doc.metadata["source"]
+    new_document.content = lang_doc.page_content
+    res = client.embeddings.create(input=[lang_doc.page_content], model=EMBEDDINGS_MODEL)
+    print(f'Generated embeddings for the string "{lang_doc.page_content[0:100]}", dimensions: {len(res.data[0].embedding)}')
+    vector = res.data[0].embedding
+    new_document.embedded = vector
+    print(f"New doc: {new_document}")
+    return new_document
+def main() -> None:
+    # index_documents()
+    print_documents()
 
 if __name__ == "__main__":
-    print(f"API KEY: {(os.environ['PINECONE_API_KEY'])}")
-    ingest_docs()
+    main()
