@@ -23,6 +23,7 @@ markdown = "*"
 typing = "*"
 sqlalchemy = "*"
 sqlmodel = "*"
+langchain-core = "*"
 
 [dev-packages]
 

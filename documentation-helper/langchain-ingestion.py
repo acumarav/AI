@@ -11,10 +11,11 @@ from langchain.vectorstores.pgvector import PGVector
 
 from sql.models import engine, init_db, CONNECTION_STRING
 from openai import OpenAI
+from constants import COLLECTION_NAME;
 
 ai_api_key = os.environ["OPENAI_API_KEY"]
 
-COLLECTION_NAME="local_docs"
+
 
 embeddings = OpenAIEmbeddings()
 
