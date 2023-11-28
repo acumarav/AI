@@ -55,6 +55,7 @@ def run_llm(query: str) -> Any:
         chain_type="stuff",
         retriever=retriever,
         verbose=True,
+        return_source_documents=True
     )
     return qa_stuff({"query": query})
 
