@@ -1,0 +1,35 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = "*"
+streamlit-chat = "*"
+psycopg2-binary = "*"
+sqlalchemy = "*"
+streamlit-aggrid = "*"
+pandas = "*"
+openai = "*"
+langchain = "*"
+tiktoken = "*"
+pgvector = "*"
+beautifulsoup4 = "*"
+unstructured = "*"
+typing = "*"
+fastapi = "*"
+langserve = "*"
+uvicorn = "*"
+sse-starlette = "*" 
+sqlmodel = "*"
+langchain-core = "*"
+pdf2image = "*"
+pikepdf = "*"
+pypdf = "*"
+libmagic = "*"
+python-magic-bin = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

@@ -1,0 +1,1 @@
+{"heading":"EZZ4330E   TCP/IP DEVICE START(S) WAITING FOR VTAM","followUp":null,"content":"Explanation\n\nTCP/IP cannot process Start Device commands until VTAM initialization\ncompletes.\n\nSystem action\n\nTCP/IP queues all Start Device commands and will process them when VTAM\ninitialization completes.\n\nOperator response\n\nStart VTAM.","additional":[]}

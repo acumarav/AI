@@ -1,0 +1,1 @@
+{"heading":"IDFS00228E Utility file system utility_filename is damaged.","followUp":null,"content":"Explanation\nDuring the salvage run, the utility file system was found to be damaged.\n\nutility_filename\n   The utility file system name.\n\nSystem action\nThe program continues.\n\nAdministrator response:\nMount will reformat the corrupted utility file system.","additional":[]}

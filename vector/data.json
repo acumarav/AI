@@ -1,0 +1,7 @@
+{
+          "heading": "DFHPA 1915 applid INVALID DATA HAS BEEN\nDETECTED FOR SIT OVERRIDE\nkeyword. RESPECIFY THE\nOVERRIDE.",
+          "copyright": "Text Below Copyright (c) 2023, IBM",
+          "followUp": null,
+          "content": "Explanation\n\nThis message is displayed if the data specified for a\nSIT override is syntactically invalid or is a numeric\nvalue of 2 gigabytes or greater. It is only displayed if\nthe PARMERR=INTERACT option is specified in the\nSIT, or as an override.\n\nThe insert keyword is the keyword for which the value\nis in error.\n\nNote:\nPARMERR=INTERACT is the default action for invalid\nSIT overrides.\n\nSystem action\n\nCICS waits for the corrected override to be entered on\nthe console by the operator, and then analyzes this\noverride.\n\nUser response\n\nEnter the corrected SIT override on the console, or\nbypass by typing '.END', or just supply a blank line.\n\nTo enter lowercase data, start the System Command\nExtension function by typing a / by itself on the SDSF\ncommand line, or by adding a trailing + to a /\ncommand, then enter the override enclosing both the\nkeyword and data in apostrophes, remembering that\nthe keyword itself must be in uppercase. The\ncommand is still echoed in uppercase in the job log,\nbut SDSF processes the value in mixed case.\n\nModule:\n\nDFHPADM\n\nDestination\n\nConsole",
+          "additional": []
+      }
