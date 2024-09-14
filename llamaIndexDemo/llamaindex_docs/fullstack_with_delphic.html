@@ -1,0 +1,1400 @@
+<!doctype html>
+<html class="no-js" lang="zh">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="索引" href="../../genindex.html" /><link rel="search" title="搜索" href="../../search.html" /><link rel="next" title="A Guide to LlamaIndex + Structured Data" href="sql_guide.html" /><link rel="prev" title="A Guide to Building a Full-Stack Web App with LLamaIndex" href="fullstack_app_guide.html" />
+        <link rel="canonical" href="https://llama-index.readthedocs.io/zh/latest/guides/tutorials/fullstack_with_delphic.html" />
+
+    <!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
+        <title>A Guide to Building a Full-Stack LlamaIndex Web App with Delphic - LlamaIndex 🦙 0.6.8</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="/_/static/css/badge_only.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style>
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "build_date": "2023-05-30T10:48:08Z", "builder": "sphinx", "canonical_url": null, "commit": "9db7c88b", "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "zh", "page": "guides/tutorials/fullstack_with_delphic", "programming_language": "py", "project": "llama-index", "proxied_api_host": "/_", "source_suffix": ".md", "subprojects": {}, "theme": "furo", "user_analytics_code": "", "version": "stable"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">LlamaIndex 🦙 0.6.8
+</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">LlamaIndex 🦙 0.6.8
+</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="搜索" name="q" aria-label="搜索">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/starter_example.html">Starter Tutorial</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../primer.html">A Primer to using LlamaIndex</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../primer/usage_pattern.html">LlamaIndex Usage Pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../primer/index_guide.html">How Each Index Works</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="building_a_chatbot.html">💬🤖 How to Build a Chatbot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fullstack_app_guide.html">A Guide to Building a Full-Stack Web App with LLamaIndex</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">A Guide to Building a Full-Stack LlamaIndex Web App with Delphic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sql_guide.html">A Guide to LlamaIndex + Structured Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="terms_definitions_tutorial.html">A Guide to Extracting Terms and Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unified_query.html">A Guide to Creating a Unified Query Framework over your Indexes</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://medium.com/@jerryjliu98/how-unstructured-and-llamaindex-can-help-bring-the-power-of-llms-to-your-own-data-3657d063e30d">SEC 10k Analysis</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://colab.research.google.com/drive/16QMQePkONNlDpgiltOi7oRQgmB8dU5fl?usp=sharing">Using LlamaIndex with Local Models</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../use_cases/queries.html">Queries over your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../use_cases/apps.html">Integrations into LLM Applications</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Key Components</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/data_connectors.html">🔌 Data Connectors (LlamaHub)</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/DeepLakeReader.html">DeepLake Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/QdrantDemo.html">Qdrant Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/DiscordDemo.html">Discord Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/MongoDemo.html">MongoDB Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/ChromaDemo.html">Chroma Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/MyScaleReaderDemo.html">MyScale Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/FaissDemo.html">Faiss Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/ObsidianReaderDemo.html">Obsidian Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/SlackDemo.html">Slack Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/WebPageDemo.html">Web Page Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/PineconeDemo.html">Pinecone Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/MboxReaderDemo.html">Mbox Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/MilvusReaderDemo.html">MilvusReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/NotionDemo.html">Notion Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/GithubRepositoryReaderDemo.html">Github Repo Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/GoogleDocsDemo.html">Google Docs Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/DatabaseReaderDemo.html">Database Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/TwitterDemo.html">Twitter Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/WeaviateDemo.html">Weaviate Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/data_connectors/MakeDemo.html">Make Reader</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/indices.html">🗃️ Index Structures</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../primer/index_guide.html">How Each Index Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/index_structs/update.html">Updating an Index</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/index_structs/composability.html">Composability</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/composable_indices/ComposableIndices-Prior.html">Composable Graph Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/composable_indices/ComposableIndices-Weaviate.html">Composable Graph with Weaviate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/composable_indices/ComposableIndices.html">Composable Graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/index_structs/vector_store_guide.html">Vector Store Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index_structs/knowledge_graph/KnowledgeGraphDemo.html">Knowledge Graph Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index_structs/struct_indices/PandasIndexDemo.html">Pandas Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index_structs/struct_indices/SQLIndexDemo.html">SQL Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/index_structs/doc_summary/DocSummary.html">Document Summary Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/query_interface.html">🔍 Query Interface</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../primer/usage_pattern.html">LlamaIndex Usage Pattern</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/index_structs/composability.html">Composability</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/composable_indices/ComposableIndices-Prior.html">Composable Graph Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/composable_indices/ComposableIndices-Weaviate.html">Composable Graph with Weaviate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/composable_indices/ComposableIndices.html">Composable Graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/query/query_transformations.html">Query Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/query_transformations/HyDEQueryTransformDemo.html">HyDE Query Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/query_transformations/SimpleIndexDemo-multistep.html">Multi-Step Decompose Query Transform</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/query/second_stage.html">Second-Stage Processing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/node_postprocessor/NodePostprocessorDemo.html">Forward/Backward Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/node_postprocessor/RecencyPostprocessorDemo.html">Recency Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/node_postprocessor/TimeWeightedPostprocessorDemo.html">Time-Weighted Rerank</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/node_postprocessor/PII.html">PII Masking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/node_postprocessor/CohereRerank.html">Cohere Rerank</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/node_postprocessor/LLMReranker-Gatsby.html">LLM Reranker Demonstration</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/query/optimizers.html">Optimizers</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/node_postprocessor/OptimizerDemo.html">Sentence Embedding Optimizer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/query/response_synthesis.html">Response Synthesis</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/query/query_engines.html">Query Engines</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/query_engine/CustomRetrievers.html">Retriever Query Engine with Custom Retrievers - Simple Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/query_engine/RouterQueryEngine.html">Router Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/query_engine/RetrieverRouterQueryEngine.html">Retriever Router Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/query_engine/JointQASummary.html">Joint QA Summary Query Engine</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/customization.html">🛠️ Customization</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/customization/custom_llms.html">Defining LLMs</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/customization/llms/AzureOpenAI.html">Azure OpenAI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/customization/llms/SimpleIndexDemo-Huggingface_camel.html">HuggingFace LLM - Camel-5b</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/customization/llms/SimpleIndexDemo-Huggingface_stablelm.html">HuggingFace LLM - StableLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/customization/llms/SimpleIndexDemo-ChatGPT.html">ChatGPT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/customization/custom_prompts.html">Defining Prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/customization/embeddings.html">Embedding support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/customization.html">Customizing Storage</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/customization/streaming.html">Streaming</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/customization/streaming/SimpleIndexDemo-streaming.html">Streaming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/analysis.html">🧠 Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/analysis/cost_analysis.html">Cost Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/analysis/TokenPredictor.html">Token Predictors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/analysis/playground.html">Playground</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/analysis/PlaygroundDemo.html">Playground</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/output_parsing.html">🔢 Output Parsing</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/output_parsing/GuardrailsDemo.html">Guardrails Output Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/output_parsing/LangchainOutputParserDemo.html">Langchain Output Parsing</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/evaluation/evaluation.html">🔬 Evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/evaluation/TestNYC-Evaluation.html">Response Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/evaluation/TestNYC-Evaluation-Query.html">Query Response Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/evaluation/QuestionGeneration.html">Question Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/integrations.html">⛓️ Integrations</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/integrations/vector_stores.html">Using Vector Stores</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/SimpleIndexDemo.html">Simple Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/RedisIndexDemo.html">Redis Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/RedisIndexDemo.html#query-the-data">Query the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/QdrantIndexDemo.html">Qdrant Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/FaissIndexDemo.html">Faiss Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/DeepLakeIndexDemo.html">DeepLake Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/MyScaleIndexDemo.html">MyScale Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/MetalIndexDemo.html">Metal Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/WeaviateIndexDemo.html">Weaviate Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/OpensearchDemo.html">Using as a vector index.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/PineconeIndexDemo.html">Pinecone Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/ChromaIndexDemo.html">Chroma Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/LanceDBIndexDemo.html">LanceDB Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/MilvusIndexDemo.html">Milvus Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/WeaviateIndexDemo-Hybrid.html">Weaviate Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/PineconeIndexDemo-Hybrid.html">Pinecone Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/AsyncIndexCreationDemo.html">Simple Vector Store - Async Index Creation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/integrations/chatgpt_plugins.html">ChatGPT Plugin Integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/integrations/using_with_langchain.html">Using with Langchain 🦜🔗</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/callbacks.html">📞 Callbacks</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/callbacks/LlamaDebugHandler.html">Llama Debug Handler Demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/callbacks/AimCallback.html">AimCallback Demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/callbacks.html">Callbacks</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/storage.html">💾 Storage</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/save_load.html">Persisting &amp; Loading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/customization.html">Customizing Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/docstores.html">Document Stores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/index_stores.html">Index Stores</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/storage/vector_stores.html">Vector Stores</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/SimpleIndexDemo.html">Simple Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/QdrantIndexDemo.html">Qdrant Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/FaissIndexDemo.html">Faiss Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/DeepLakeIndexDemo.html">DeepLake Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/MyScaleIndexDemo.html">MyScale Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/MetalIndexDemo.html">Metal Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/WeaviateIndexDemo.html">Weaviate Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/OpensearchDemo.html">Using as a vector index.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/PineconeIndexDemo.html">Pinecone Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/ChromaIndexDemo.html">Chroma Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/LanceDBIndexDemo.html">LanceDB Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/MilvusIndexDemo.html">Milvus Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/RedisIndexDemo.html">Redis Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/RedisIndexDemo.html#query-the-data">Query the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/WeaviateIndexDemo-Hybrid.html">Weaviate Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/PineconeIndexDemo-Hybrid.html">Pinecone Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/vector_stores/AsyncIndexCreationDemo.html">Simple Vector Store - Async Index Creation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/kv_stores.html">Key-Value Stores</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/indices.html">Indices</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/list.html">List Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/table.html">Table Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/tree.html">Tree Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/vector_store.html">Vector Store Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/struct_store.html">Structured Store Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/kg.html">Knowledge Graph Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/empty.html">Empty Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/query.html">Querying an Index</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/query/retrievers.html">Retrievers</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/empty.html">Empty Index Retriever</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/kg.html">Knowledge Graph Retriever</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/list.html">List Retriever</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/table.html">Keyword Table Retrievers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/tree.html">Tree Retrievers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/vector_store.html">Vector Store Retrievers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/transform.html">Transform Retriever</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/query/response_synthesizer.html">Response Synthesizer</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/query/query_engines.html">Query Engines</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/graph_query_engine.html">Graph Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/multistep_query_engine.html">Multistep Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/retriever_query_engine.html">Retriever Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/transform_query_engine.html">Transform Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/router_query_engine.html">Router Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/sql_query_engine.html">SQL Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/pandas_query_engine.html">Pandas Query Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/query/query_bundle.html">Query Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/query/query_transform.html">Query Transform</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/llm_predictor.html">LLM Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/node_postprocessor.html">Node Postprocessor</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/storage.html">Storage Context</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/docstore.html">Document Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/index_store.html">Index Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/vector_store.html">Vector Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/kv_store.html">KV Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/indices_save_load.html">Loading Indices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/composability.html">Composability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/readers.html">Data Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/prompts.html">Prompt Templates</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/service_context.html">Service Context</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/embeddings.html">Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/llm_predictor.html">LLMPredictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/prompt_helper.html">PromptHelper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/llama_logger.html">Llama Logger 🪵</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/optimizers.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/callbacks.html">Callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/struct_store.html">Structured Index Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/response.html">Response</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/playground.html">Playground</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/node_parser.html">Node Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/example_notebooks.html">Example Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/langchain_integrations/base.html">Langchain Integrations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/app_showcase.html">😎 App Showcase</a></li>
+</ul>
+
+</div>
+
+<div
+  id="furo-sidebar-ad-placement"
+  class="flat"
+  data-ea-publisher="readthedocs"
+  data-ea-type="readthedocs-sidebar"
+  data-ea-manual="true"
+></div>
+</div>
+
+<div id="furo-readthedocs-versions" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="版本" tabindex="0">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book">&nbsp;</span>
+    v: stable
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>版本</dt>
+      
+        <dd><a href="/zh/latest/">latest</a></dd>
+      
+        <dd><a href="/zh/stable/">stable</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>下载</dt>
+      
+    </dl>
+    <dl>
+      
+      <dt>托管于 Read the Docs</dt>
+        <dd>
+          <a href="//readthedocs.org/projects/llama-index/?fromdocs=llama-index">项目主页</a>
+        </dd>
+        <dd>
+          <a href="//readthedocs.org/builds/llama-index/?fromdocs=llama-index">构建</a>
+        </dd>
+    </dl>
+  </div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+
+  
+  <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/stephenzhao/llama_index/edit/9db7c88b6cacb738fa655d15efa8494cb1c7cab2/docs/guides/tutorials/fullstack_with_delphic.md" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="section" id="a-guide-to-building-a-full-stack-llamaindex-web-app-with-delphic">
+<h1>A Guide to Building a Full-Stack LlamaIndex Web App with Delphic<a class="headerlink" href="#a-guide-to-building-a-full-stack-llamaindex-web-app-with-delphic" title="此标题的永久链接"></a></h1>
+<p>This guide seeks to walk you through using LlamaIndex with a production-ready web app starter template
+called <a class="reference external" href="https://github.com/JSv4/Delphic">Delphic</a>. All code examples here are available from
+the <a class="reference external" href="https://github.com/JSv4/Delphic">Delphic</a> repo</p>
+<div class="section" id="what-we-re-building">
+<h2>What We're Building<a class="headerlink" href="#what-we-re-building" title="此标题的永久链接"></a></h2>
+<p>Here's a quick demo of the out-of-the-box functionality of Delphic:</p>
+<p>https://user-images.githubusercontent.com/5049984/233236432-aa4980b6-a510-42f3-887a-81485c9644e6.mp4</p>
+</div>
+<div class="section" id="architectural-overview">
+<h2>Architectural Overview<a class="headerlink" href="#architectural-overview" title="此标题的永久链接"></a></h2>
+<p>Delphic leverages the LlamaIndex python library to let users to create their own document collections they can then
+query in a responsive frontend.</p>
+<p>We chose a stack that provides a responsive, robust mix of technologies that can (1) orchestrate complex python
+processing tasks while providing (2) a modern, responsive frontend and (3) a secure backend to build additional
+functionality upon.</p>
+<p>The core libraries are:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://www.djangoproject.com/">Django</a></p></li>
+<li><p><a class="reference external" href="https://channels.readthedocs.io/en/stable/">Django Channels</a></p></li>
+<li><p><a class="reference external" href="https://django-ninja.rest-framework.com/">Django Ninja</a></p></li>
+<li><p><a class="reference external" href="https://redis.io/">Redis</a></p></li>
+<li><p><a class="reference external" href="https://docs.celeryq.dev/en/stable/getting-started/introduction.html">Celery</a></p></li>
+<li><p><a class="reference external" href="https://gpt-index.readthedocs.io/en/latest/">LlamaIndex</a></p></li>
+<li><p><a class="reference external" href="https://python.langchain.com/en/latest/index.html">Langchain</a></p></li>
+<li><p><a class="reference external" href="https://github.com/facebook/react">React</a></p></li>
+<li><p>Docker &amp; Docker Compose</p></li>
+</ol>
+<p>Thanks to this modern stack built on the super stable Django web framework, the starter Delphic app boasts a streamlined
+developer experience, built-in authentication and user management, asynchronous vector store processing, and
+web-socket-based query connections for a responsive UI. In addition, our frontend is built with TypeScript and is based
+on MUI React for a responsive and modern user interface.</p>
+</div>
+<div class="section" id="system-requirements">
+<h2>System Requirements<a class="headerlink" href="#system-requirements" title="此标题的永久链接"></a></h2>
+<p>Celery doesn't work on Windows. It may be deployable with Windows Subsystem for Linux, but configuring that is beyond
+the scope of this tutorial. For this reason, we recommend you only follow this tutorial if you're running Linux or OSX.
+You will need Docker and Docker Compose installed to deploy the application. Local development will require node version
+manager (nvm).</p>
+</div>
+<div class="section" id="django-backend">
+<h2>Django Backend<a class="headerlink" href="#django-backend" title="此标题的永久链接"></a></h2>
+<div class="section" id="project-directory-overview">
+<h3>Project Directory Overview<a class="headerlink" href="#project-directory-overview" title="此标题的永久链接"></a></h3>
+<p>The Delphic application has a structured backend directory organization that follows common Django project conventions.
+From the repo root, in the <code class="docutils literal notranslate"><span class="pre">./delphic</span></code> subfolder, the main folders are:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">contrib</span></code>: This directory contains custom modifications or additions to Django's built-in <code class="docutils literal notranslate"><span class="pre">contrib</span></code> apps.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">indexes</span></code>: This directory contains the core functionality related to document indexing and LLM integration. It
+includes:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">admin.py</span></code>: Django admin configuration for the app</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apps.py</span></code>: Application configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">models.py</span></code>: Contains the app's database models</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">migrations</span></code>: Directory containing database schema migrations for the app</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">signals.py</span></code>: Defines any signals for the app</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests.py</span></code>: Unit tests for the app</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p><code class="docutils literal notranslate"><span class="pre">tasks</span></code>: This directory contains tasks for asynchronous processing using Celery. The <code class="docutils literal notranslate"><span class="pre">index_tasks.py</span></code> file includes
+the tasks for creating vector indexes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">users</span></code>: This directory is dedicated to user management, including:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utils</span></code>: This directory contains utility modules and functions that are used across the application, such as custom
+storage backends, path helpers, and collection-related utilities.</p></li>
+</ol>
+</div>
+<div class="section" id="database-models">
+<h3>Database Models<a class="headerlink" href="#database-models" title="此标题的永久链接"></a></h3>
+<p>The Delphic application has two core models: <code class="docutils literal notranslate"><span class="pre">Document</span></code> and <code class="docutils literal notranslate"><span class="pre">Collection</span></code>. These models represent the central entities
+the application deals with when indexing and querying documents using LLMs. They're defined in
+<a class="reference external" href="https://github.com/JSv4/Delphic/blob/main/delphic/indexes/models.py"><code class="docutils literal notranslate"><span class="pre">./delphic/indexes/models.py</span></code></a>.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Collection</span></code>:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">api_key</span></code>: A foreign key that links a collection to an API key. This helps associate jobs with the source API key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: A character field that provides a title for the collection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: A text field that provides a description of the collection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: A character field that stores the processing status of the collection, utilizing the <code class="docutils literal notranslate"><span class="pre">CollectionStatus</span></code>
+enumeration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">created</span></code>: A datetime field that records when the collection was created.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">modified</span></code>: A datetime field that records the last modification time of the collection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: A file field that stores the model associated with the collection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">processing</span></code>: A boolean field that indicates if the collection is currently being processed.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p><code class="docutils literal notranslate"><span class="pre">Document</span></code>:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">collection</span></code>: A foreign key that links a document to a collection. This represents the relationship between documents
+and collections.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: A file field that stores the uploaded document file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: A text field that provides a description of the document.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">created</span></code>: A datetime field that records when the document was created.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">modified</span></code>: A datetime field that records the last modification time of the document.</p></li>
+</ul>
+<p>These models provide a solid foundation for collections of documents and the indexes created from them with LlamaIndex.</p>
+</div>
+<div class="section" id="django-ninja-api">
+<h3>Django Ninja API<a class="headerlink" href="#django-ninja-api" title="此标题的永久链接"></a></h3>
+<p>Django Ninja is a web framework for building APIs with Django and Python 3.7+ type hints. It provides a simple,
+intuitive, and expressive way of defining API endpoints, leveraging Python’s type hints to automatically generate input
+validation, serialization, and documentation.</p>
+<p>In the Delphic repo,
+the <a class="reference external" href="https://github.com/JSv4/Delphic/blob/main/config/api/endpoints.py"><code class="docutils literal notranslate"><span class="pre">./config/api/endpoints.py</span></code></a>
+file contains the API routes and logic for the API endpoints. Now, let’s briefly address the purpose of each endpoint
+in the <code class="docutils literal notranslate"><span class="pre">endpoints.py</span></code> file:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/heartbeat</span></code>: A simple GET endpoint to check if the API is up and running. Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the API is accessible.
+This is helpful for Kubernetes setups that expect to be able to query your container to ensure it's up and running.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/collections/create</span></code>: A POST endpoint to create a new <code class="docutils literal notranslate"><span class="pre">Collection</span></code>. Accepts form parameters such
+as <code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>, and a list of <code class="docutils literal notranslate"><span class="pre">files</span></code>. Creates a new <code class="docutils literal notranslate"><span class="pre">Collection</span></code> and <code class="docutils literal notranslate"><span class="pre">Document</span></code> instances for each file,
+and schedules a Celery task to create an index.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@collections_router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/create&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">create_collection</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
+                            <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>
+                            <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>
+                            <span class="n">files</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">UploadedFile</span><span class="p">]</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="p">):</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;auth&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">request</span><span class="o">.</span><span class="n">auth</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="k">await</span> <span class="n">key</span>
+
+    <span class="n">collection_instance</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">(</span>
+        <span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">status</span><span class="o">=</span><span class="n">CollectionStatusEnum</span><span class="o">.</span><span class="n">QUEUED</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">sync_to_async</span><span class="p">(</span><span class="n">collection_instance</span><span class="o">.</span><span class="n">save</span><span class="p">)()</span>
+
+    <span class="k">for</span> <span class="n">uploaded_file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">doc_data</span> <span class="o">=</span> <span class="n">uploaded_file</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">doc_file</span> <span class="o">=</span> <span class="n">ContentFile</span><span class="p">(</span><span class="n">doc_data</span><span class="p">,</span> <span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">document</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="n">collection</span><span class="o">=</span><span class="n">collection_instance</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">doc_file</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">sync_to_async</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">save</span><span class="p">)()</span>
+
+    <span class="n">create_index</span><span class="o">.</span><span class="n">si</span><span class="p">(</span><span class="n">collection_instance</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">apply_async</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="k">await</span> <span class="n">sync_to_async</span><span class="p">(</span><span class="n">CollectionModelSchema</span><span class="p">)(</span>
+        <span class="o">...</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><code class="docutils literal notranslate"><span class="pre">/collections/query</span></code> — a POST endpoint to query a document collection using the LLM. Accepts a JSON payload
+containing <code class="docutils literal notranslate"><span class="pre">collection_id</span></code> and <code class="docutils literal notranslate"><span class="pre">query_str</span></code>, and returns a response generated by querying the collection. We don't
+actually use this endpoint in our chat GUI (We use a websocket - see below), but you could build an app to integrate
+to this REST endpoint to query a specific collection.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@collections_router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/query&quot;</span><span class="p">,</span>
+                         <span class="n">response</span><span class="o">=</span><span class="n">CollectionQueryOutput</span><span class="p">,</span>
+                         <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Ask a question of a document collection&quot;</span><span class="p">,</span> <span class="p">)</span>
+<span class="k">def</span> <span class="nf">query_collection_view</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">,</span> <span class="n">query_input</span><span class="p">:</span> <span class="n">CollectionQueryInput</span><span class="p">):</span>
+    <span class="n">collection_id</span> <span class="o">=</span> <span class="n">query_input</span><span class="o">.</span><span class="n">collection_id</span>
+    <span class="n">query_str</span> <span class="o">=</span> <span class="n">query_input</span><span class="o">.</span><span class="n">query_str</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">query_collection</span><span class="p">(</span><span class="n">collection_id</span><span class="p">,</span> <span class="n">query_str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">response</span><span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><code class="docutils literal notranslate"><span class="pre">/collections/available</span></code>: A GET endpoint that returns a list of all collections created with the user's API key. The
+output is serialized using the <code class="docutils literal notranslate"><span class="pre">CollectionModelSchema</span></code>.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@collections_router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/available&quot;</span><span class="p">,</span>
+                        <span class="n">response</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">CollectionModelSchema</span><span class="p">],</span>
+                        <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Get a list of all of the collections created with my api_key&quot;</span><span class="p">,</span> <span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_my_collections_view</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">HttpRequest</span><span class="p">):</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;auth&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">request</span><span class="o">.</span><span class="n">auth</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="k">await</span> <span class="n">key</span>
+
+    <span class="n">collections</span> <span class="o">=</span> <span class="n">Collection</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="o">...</span>
+        <span class="p">}</span>
+        <span class="k">async</span> <span class="k">for</span> <span class="n">collection</span> <span class="ow">in</span> <span class="n">collections</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p><code class="docutils literal notranslate"><span class="pre">/collections/{collection_id}/add_file</span></code>: A POST endpoint to add a file to an existing collection. Accepts
+a <code class="docutils literal notranslate"><span class="pre">collection_id</span></code> path parameter, and form parameters such as <code class="docutils literal notranslate"><span class="pre">file</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>. Adds the file as a <code class="docutils literal notranslate"><span class="pre">Document</span></code>
+instance associated with the specified collection.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@collections_router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">{collection_id}</span><span class="s2">/add_file&quot;</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Add a file to a collection&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">add_file_to_collection</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
+                                 <span class="n">collection_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                                 <span class="n">file</span><span class="p">:</span> <span class="n">UploadedFile</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>
+                                 <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="p">):</span>
+    <span class="n">collection</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sync_to_async</span><span class="p">(</span><span class="n">Collection</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">)(</span><span class="nb">id</span><span class="o">=</span><span class="n">collection_id</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="intro-to-websockets">
+<h3>Intro to Websockets<a class="headerlink" href="#intro-to-websockets" title="此标题的永久链接"></a></h3>
+<p>WebSockets are a communication protocol that enables bidirectional and full-duplex communication between a client and a
+server over a single, long-lived connection. The WebSocket protocol is designed to work over the same ports as HTTP and
+HTTPS (ports 80 and 443, respectively) and uses a similar handshake process to establish a connection. Once the
+connection is established, data can be sent in both directions as “frames” without the need to reestablish the
+connection each time, unlike traditional HTTP requests.</p>
+<p>There are several reasons to use WebSockets, particularly when working with code that takes a long time to load into
+memory but is quick to run once loaded:</p>
+<ol class="arabic simple">
+<li><p><strong>Performance</strong>: WebSockets eliminate the overhead associated with opening and closing multiple connections for each
+request, reducing latency.</p></li>
+<li><p><strong>Efficiency</strong>: WebSockets allow for real-time communication without the need for polling, resulting in more
+efficient use of resources and better responsiveness.</p></li>
+<li><p><strong>Scalability</strong>: WebSockets can handle a large number of simultaneous connections, making it ideal for applications
+that require high concurrency.</p></li>
+</ol>
+<p>In the case of the Delphic application, using WebSockets makes sense as the LLMs can be expensive to load into memory.
+By establishing a WebSocket connection, the LLM can remain loaded in memory, allowing subsequent requests to be
+processed quickly without the need to reload the model each time.</p>
+<p>The ASGI configuration file <a class="reference external" href="https://github.com/JSv4/Delphic/blob/main/config/asgi.py"><code class="docutils literal notranslate"><span class="pre">./config/asgi.py</span></code></a> defines how
+the application should handle incoming connections, using the Django Channels <code class="docutils literal notranslate"><span class="pre">ProtocolTypeRouter</span></code> to route connections
+based on their protocol type. In this case, we have two protocol types: &quot;http&quot; and &quot;websocket&quot;.</p>
+<p>The “http” protocol type uses the standard Django ASGI application to handle HTTP requests, while the “websocket”
+protocol type uses a custom <code class="docutils literal notranslate"><span class="pre">TokenAuthMiddleware</span></code> to authenticate WebSocket connections. The <code class="docutils literal notranslate"><span class="pre">URLRouter</span></code> within
+the <code class="docutils literal notranslate"><span class="pre">TokenAuthMiddleware</span></code> defines a URL pattern for the <code class="docutils literal notranslate"><span class="pre">CollectionQueryConsumer</span></code>, which is responsible for handling
+WebSocket connections related to querying document collections.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">application</span> <span class="o">=</span> <span class="n">ProtocolTypeRouter</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;http&quot;</span><span class="p">:</span> <span class="n">get_asgi_application</span><span class="p">(),</span>
+        <span class="s2">&quot;websocket&quot;</span><span class="p">:</span> <span class="n">TokenAuthMiddleware</span><span class="p">(</span>
+            <span class="n">URLRouter</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">re_path</span><span class="p">(</span>
+                        <span class="sa">r</span><span class="s2">&quot;ws/collections/(?P&lt;collection_id&gt;\w+)/query/$&quot;</span><span class="p">,</span>
+                        <span class="n">CollectionQueryConsumer</span><span class="o">.</span><span class="n">as_asgi</span><span class="p">(),</span>
+                    <span class="p">),</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This configuration allows clients to establish WebSocket connections with the Delphic application to efficiently query
+document collections using the LLMs, without the need to reload the models for each request.</p>
+</div>
+<div class="section" id="websocket-handler">
+<h3>Websocket Handler<a class="headerlink" href="#websocket-handler" title="此标题的永久链接"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">CollectionQueryConsumer</span></code> class
+in <a class="reference external" href="https://github.com/JSv4/Delphic/blob/main/config/api/websockets/queries.py"><code class="docutils literal notranslate"><span class="pre">config/api/websockets/queries.py</span></code></a> is
+responsible for handling WebSocket connections related to querying document collections. It inherits from
+the <code class="docutils literal notranslate"><span class="pre">AsyncWebsocketConsumer</span></code> class provided by Django Channels.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CollectionQueryConsumer</span></code> class has three main methods:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">connect</span></code>: Called when a WebSocket is handshaking as part of the connection process.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disconnect</span></code>: Called when a WebSocket closes for any reason.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">receive</span></code>: Called when the server receives a message from the WebSocket.</p></li>
+</ol>
+<div class="section" id="websocket-connect-listener">
+<h4>Websocket connect listener<a class="headerlink" href="#websocket-connect-listener" title="此标题的永久链接"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">connect</span></code> method is responsible for establishing the connection, extracting the collection ID from the connection
+path, loading the collection model, and accepting the connection.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection_id</span> <span class="o">=</span> <span class="n">extract_connection_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="k">await</span> <span class="n">load_collection_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">collection_id</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+<span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">4000</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="websocket-disconnect-listener">
+<h4>Websocket disconnect listener<a class="headerlink" href="#websocket-disconnect-listener" title="此标题的永久链接"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">disconnect</span></code> method is empty in this case, as there are no additional actions to be taken when the WebSocket is
+closed.</p>
+</div>
+<div class="section" id="websocket-receive-listener">
+<h4>Websocket receive listener<a class="headerlink" href="#websocket-receive-listener" title="此标题的永久链接"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">receive</span></code> method is responsible for processing incoming messages from the WebSocket. It takes the incoming message,
+decodes it, and then queries the loaded collection model using the provided query. The response is then formatted as a
+markdown string and sent back to the client over the WebSocket connection.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_data</span><span class="p">):</span>
+    <span class="n">text_data_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text_data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">query_str</span> <span class="o">=</span> <span class="n">text_data_json</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span>
+        <span class="n">modified_query_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Please return a nicely formatted markdown string to this request:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">query_str</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">query_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">modified_query_str</span><span class="p">)</span>
+
+        <span class="n">markdown_response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;## Response</span><span class="se">\n\n</span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">source_nodes</span><span class="p">:</span>
+            <span class="n">markdown_sources</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;## Sources</span><span class="se">\n\n</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">get_formatted_sources</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">markdown_sources</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">formatted_response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">markdown_response</span><span class="si">}{</span><span class="n">markdown_sources</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">formatted_response</span><span class="p">},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;No index loaded for this connection.&quot;</span><span class="p">},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To load the collection model, the <code class="docutils literal notranslate"><span class="pre">load_collection_model</span></code> function is used, which can be found
+in <a class="reference external" href="https://github.com/JSv4/Delphic/blob/main/delphic/utils/collections.py"><code class="docutils literal notranslate"><span class="pre">delphic/utils/collections.py</span></code></a>. This
+function retrieves the collection object with the given collection ID, checks if a JSON file for the collection model
+exists, and if not, creates one. Then, it sets up the <code class="docutils literal notranslate"><span class="pre">LLMPredictor</span></code> and <code class="docutils literal notranslate"><span class="pre">ServiceContext</span></code> before loading
+the <code class="docutils literal notranslate"><span class="pre">GPTVectorStoreIndex</span></code> using the cache file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">load_collection_model</span><span class="p">(</span><span class="n">collection_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GPTVectorStoreIndex</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the Collection model from cache or the database, and return the index.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        collection_id (Union[str, int]): The ID of the Collection model instance.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        GPTVectorStoreIndex: The loaded index.</span>
+
+<span class="sd">    This function performs the following steps:</span>
+<span class="sd">    1. Retrieve the Collection object with the given collection_id.</span>
+<span class="sd">    2. Check if a JSON file with the name &#39;/cache/model_{collection_id}.json&#39; exists.</span>
+<span class="sd">    3. If the JSON file doesn&#39;t exist, load the JSON from the Collection.model FileField and save it to</span>
+<span class="sd">       &#39;/cache/model_{collection_id}.json&#39;.</span>
+<span class="sd">    4. Call GPTVectorStoreIndex.load_from_disk with the cache_file_path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Retrieve the Collection object</span>
+    <span class="n">collection</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Collection</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">aget</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">collection_id</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;load_collection_model() - loaded collection </span><span class="si">{</span><span class="n">collection_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Make sure there&#39;s a model</span>
+    <span class="k">if</span> <span class="n">collection</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;load_collection_model() - Setup local json index file&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Check if the JSON file exists</span>
+        <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">BASE_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;cache&quot;</span>
+        <span class="n">cache_file_path</span> <span class="o">=</span> <span class="n">cache_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;model_</span><span class="si">{</span><span class="n">collection_id</span><span class="si">}</span><span class="s2">.json&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cache_file_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">cache_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">collection</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">model_file</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">cache_file_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w+&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cache_file</span><span class="p">:</span>
+                    <span class="n">cache_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">model_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+
+        <span class="c1"># define LLM</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;load_collection_model() - Setup service context with tokens </span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">MAX_TOKENS</span><span class="si">}</span><span class="s2"> and &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;model </span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">MODEL_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">llm_predictor</span> <span class="o">=</span> <span class="n">LLMPredictor</span><span class="p">(</span>
+            <span class="n">llm</span><span class="o">=</span><span class="n">OpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">service_context</span> <span class="o">=</span> <span class="n">ServiceContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">llm_predictor</span><span class="o">=</span><span class="n">llm_predictor</span><span class="p">)</span>
+
+        <span class="c1"># Call GPTVectorStoreIndex.load_from_disk</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;load_collection_model() - Load llama index&quot;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">GPTVectorStoreIndex</span><span class="o">.</span><span class="n">load_from_disk</span><span class="p">(</span>
+            <span class="n">cache_file_path</span><span class="p">,</span> <span class="n">service_context</span><span class="o">=</span><span class="n">service_context</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;load_collection_model() - Llamaindex loaded and ready for query...&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;load_collection_model() - collection </span><span class="si">{</span><span class="n">collection_id</span><span class="si">}</span><span class="s2"> has no model!&quot;</span>
+        <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No model exists for this collection!&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">index</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="react-frontend">
+<h2>React Frontend<a class="headerlink" href="#react-frontend" title="此标题的永久链接"></a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="此标题的永久链接"></a></h3>
+<p>We chose to use TypeScript, React and Material-UI (MUI) for the Delphic project’s frontend for a couple reasons. First,
+as the most popular component library (MUI) for the most popular frontend framework (React), this choice makes this
+project accessible to a huge community of developers. Second, React is, at this point, a stable and generally well-liked
+framework that delivers valuable abstractions in the form of its virtual DOM while still being relatively stable and, in
+our opinion, pretty easy to learn, again making it accessible.</p>
+</div>
+<div class="section" id="frontend-project-structure">
+<h3>Frontend Project Structure<a class="headerlink" href="#frontend-project-structure" title="此标题的永久链接"></a></h3>
+<p>The frontend can be found in the <a class="reference external" href="https://github.com/JSv4/Delphic/tree/main/frontend"><code class="docutils literal notranslate"><span class="pre">/frontend</span></code></a> directory of the
+repo, with the React-related components being in <code class="docutils literal notranslate"><span class="pre">/frontend/src</span></code> . You’ll notice there is a DockerFile in the <code class="docutils literal notranslate"><span class="pre">frontend</span></code>
+directory and several folders and files related to configuring our frontend web
+server — <a class="reference external" href="https://www.nginx.com/">nginx</a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">/frontend/src/App.tsx</span></code> file serves as the entry point of the application. It defines the main components, such as
+the login form, the drawer layout, and the collection create modal. The main components are conditionally rendered based
+on whether the user is logged in and has an authentication token.</p>
+<p>The DrawerLayout2 component is defined in the<code class="docutils literal notranslate"><span class="pre">DrawerLayour2.tsx</span></code> file. This component manages the layout of the
+application and provides the navigation and main content areas.</p>
+<p>Since the application is relatively simple, we can get away with not using a complex state management solution like
+Redux and just use React’s useState hooks.</p>
+</div>
+<div class="section" id="grabbing-collections-from-the-backend">
+<h3>Grabbing Collections from the Backend<a class="headerlink" href="#grabbing-collections-from-the-backend" title="此标题的永久链接"></a></h3>
+<p>The collections available to the logged-in user are retrieved and displayed in the DrawerLayout2 component. The process
+can be broken down into the following steps:</p>
+<ol class="arabic simple">
+<li><p>Initializing state variables:</p></li>
+</ol>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>const[collections, setCollections] = useState &lt; CollectionModelSchema[] &gt; ([]);
+const[loading, setLoading] = useState(true);
+</pre></div>
+</div>
+<p>Here, we initialize two state variables: <code class="docutils literal notranslate"><span class="pre">collections</span></code> to store the list of collections and <code class="docutils literal notranslate"><span class="pre">loading</span></code> to track whether
+the collections are being fetched.</p>
+<ol class="arabic simple" start="2">
+<li><p>Collections are fetched for the logged-in user with the <code class="docutils literal notranslate"><span class="pre">fetchCollections()</span></code> function:</p></li>
+</ol>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>const
+fetchCollections = async () = &gt; {
+try {
+const accessToken = localStorage.getItem(&quot;accessToken&quot;);
+if (accessToken) {
+const response = await getMyCollections(accessToken);
+setCollections(response.data);
+}
+} catch (error) {
+console.error(error);
+} finally {
+setLoading(false);
+}
+};
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fetchCollections</span></code> function retrieves the collections for the logged-in user by calling the <code class="docutils literal notranslate"><span class="pre">getMyCollections</span></code> API
+function with the user's access token. It then updates the <code class="docutils literal notranslate"><span class="pre">collections</span></code> state with the retrieved data and sets
+the <code class="docutils literal notranslate"><span class="pre">loading</span></code> state to <code class="docutils literal notranslate"><span class="pre">false</span></code> to indicate that fetching is complete.</p>
+</div>
+<div class="section" id="displaying-collections">
+<h3>Displaying Collections<a class="headerlink" href="#displaying-collections" title="此标题的永久链接"></a></h3>
+<p>The latest collectios are displayed in the drawer like this:</p>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>&lt; List &gt;
+{collections.map((collection) = &gt; (
+    &lt; div key={collection.id} &gt;
+    &lt; ListItem disablePadding &gt;
+    &lt; ListItemButton
+    disabled={
+    collection.status != = CollectionStatus.COMPLETE | |
+    !collection.has_model
+    }
+    onClick={() = &gt; handleCollectionClick(collection)}
+selected = {
+    selectedCollection &amp; &amp;
+    selectedCollection.id == = collection.id
+}
+&gt;
+&lt; ListItemText
+primary = {collection.title} / &gt;
+          {collection.status == = CollectionStatus.RUNNING ? (
+    &lt; CircularProgress
+    size={24}
+    style={{position: &quot;absolute&quot;, right: 16}}
+    / &gt;
+): null}
+&lt; / ListItemButton &gt;
+    &lt; / ListItem &gt;
+        &lt; / div &gt;
+))}
+&lt; / List &gt;
+</pre></div>
+</div>
+<p>You’ll notice that the <code class="docutils literal notranslate"><span class="pre">disabled</span></code> property of a collection’s <code class="docutils literal notranslate"><span class="pre">ListItemButton</span></code> is set based on whether the collection's
+status is not <code class="docutils literal notranslate"><span class="pre">CollectionStatus.COMPLETE</span></code> or the collection does not have a model (<code class="docutils literal notranslate"><span class="pre">!collection.has_model</span></code>). If either
+of these conditions is true, the button is disabled, preventing users from selecting an incomplete or model-less
+collection. Where the CollectionStatus is RUNNING, we also show a loading wheel over the button.</p>
+<p>In a separate <code class="docutils literal notranslate"><span class="pre">useEffect</span></code> hook, we check if any collection in the <code class="docutils literal notranslate"><span class="pre">collections</span></code> state has a status
+of <code class="docutils literal notranslate"><span class="pre">CollectionStatus.RUNNING</span></code> or <code class="docutils literal notranslate"><span class="pre">CollectionStatus.QUEUED</span></code>. If so, we set up an interval to repeatedly call
+the <code class="docutils literal notranslate"><span class="pre">fetchCollections</span></code> function every 15 seconds (15,000 milliseconds) to update the collection statuses. This way, the
+application periodically checks for completed collections, and the UI is updated accordingly when the processing is
+done.</p>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>useEffect(() = &gt; {
+    let
+interval: NodeJS.Timeout;
+if (
+    collections.some(
+        (collection) = &gt;
+collection.status == = CollectionStatus.RUNNING | |
+collection.status == = CollectionStatus.QUEUED
+)
+) {
+    interval = setInterval(() = &gt; {
+    fetchCollections();
+}, 15000);
+}
+return () = &gt; clearInterval(interval);
+}, [collections]);
+</pre></div>
+</div>
+</div>
+<div class="section" id="chat-view-component">
+<h3>Chat View Component<a class="headerlink" href="#chat-view-component" title="此标题的永久链接"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ChatView</span></code> component in <code class="docutils literal notranslate"><span class="pre">frontend/src/chat/ChatView.tsx</span></code> is responsible for handling and displaying a chat interface
+for a user to interact with a collection. The component establishes a WebSocket connection to communicate in real-time
+with the server, sending and receiving messages.</p>
+<p>Key features of the <code class="docutils literal notranslate"><span class="pre">ChatView</span></code> component include:</p>
+<ol class="arabic simple">
+<li><p>Establishing and managing the WebSocket connection with the server.</p></li>
+<li><p>Displaying messages from the user and the server in a chat-like format.</p></li>
+<li><p>Handling user input to send messages to the server.</p></li>
+<li><p>Updating the messages state and UI based on received messages from the server.</p></li>
+<li><p>Displaying connection status and errors, such as loading messages, connecting to the server, or encountering errors
+while loading a collection.</p></li>
+</ol>
+<p>Together, all of this allows users to interact with their selected collection with a very smooth, low-latency
+experience.</p>
+<div class="section" id="chat-websocket-client">
+<h4>Chat Websocket Client<a class="headerlink" href="#chat-websocket-client" title="此标题的永久链接"></a></h4>
+<p>The WebSocket connection in the <code class="docutils literal notranslate"><span class="pre">ChatView</span></code> component is used to establish real-time communication between the client and
+the server. The WebSocket connection is set up and managed in the <code class="docutils literal notranslate"><span class="pre">ChatView</span></code> component as follows:</p>
+<p>First, we want to initialize the the WebSocket reference:</p>
+<p>const websocket = useRef&lt;WebSocket | null&gt;(null);</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">websocket</span></code> reference is created using <code class="docutils literal notranslate"><span class="pre">useRef</span></code>, which holds the WebSocket object that will be used for
+communication. <code class="docutils literal notranslate"><span class="pre">useRef</span></code> is a hook in React that allows you to create a mutable reference object that persists across
+renders. It is particularly useful when you need to hold a reference to a mutable object, such as a WebSocket
+connection, without causing unnecessary re-renders.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">ChatView</span></code> component, the WebSocket connection needs to be established and maintained throughout the lifetime of
+the component, and it should not trigger a re-render when the connection state changes. By using <code class="docutils literal notranslate"><span class="pre">useRef</span></code>, you ensure
+that the WebSocket connection is kept as a reference, and the component only re-renders when there are actual state
+changes, such as updating messages or displaying errors.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">setupWebsocket</span></code> function is responsible for establishing the WebSocket connection and setting up event handlers to
+handle different WebSocket events.</p>
+<p>Overall, the setupWebsocket function looks like this:</p>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>const setupWebsocket = () =&gt; {  
+  setConnecting(true);  
+  // Here, a new WebSocket object is created using the specified URL, which includes the   
+  // selected collection&#39;s ID and the user&#39;s authentication token.  
+    
+  websocket.current = new WebSocket(  
+    `ws://localhost:8000/ws/collections/${selectedCollection.id}/query/?token=${authToken}`  
+  );  
+  
+  websocket.current.onopen = (event) =&gt; {  
+    //...  
+  };  
+  
+  websocket.current.onmessage = (event) =&gt; {  
+    //...  
+  };  
+  
+  websocket.current.onclose = (event) =&gt; {  
+    //...  
+  };  
+  
+  websocket.current.onerror = (event) =&gt; {  
+    //...  
+  };  
+  
+  return () =&gt; {  
+    websocket.current?.close();  
+  };  
+};
+</pre></div>
+</div>
+<p>Notice in a bunch of places we trigger updates to the GUI based on the information from the web socket client.</p>
+<p>When the component first opens and we try to establish a connection, the <code class="docutils literal notranslate"><span class="pre">onopen</span></code> listener is triggered. In the
+callback, the component updates the states to reflect that the connection is established, any previous errors are
+cleared, and no messages are awaiting responses:</p>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>websocket.current.onopen = (event) =&gt; {  
+  setError(false);  
+  setConnecting(false);  
+  setAwaitingMessage(false);  
+  
+  console.log(&quot;WebSocket connected:&quot;, event);  
+};
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">onmessage</span></code>is triggered when a new message is received from the server through the WebSocket connection. In the
+callback, the received data is parsed and the <code class="docutils literal notranslate"><span class="pre">messages</span></code> state is updated with the new message from the server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">websocket</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">onmessage</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>  
+  <span class="n">const</span> <span class="n">data</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">);</span>  
+  <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;WebSocket message received:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>  
+  <span class="n">setAwaitingMessage</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>  
+  
+  <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">response</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="o">//</span> <span class="n">Update</span> <span class="n">the</span> <span class="n">messages</span> <span class="n">state</span> <span class="k">with</span> <span class="n">the</span> <span class="n">new</span> <span class="n">message</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">server</span>  
+    <span class="n">setMessages</span><span class="p">((</span><span class="n">prevMessages</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">[</span>  
+      <span class="o">...</span><span class="n">prevMessages</span><span class="p">,</span>  
+      <span class="p">{</span>  
+        <span class="n">sender_id</span><span class="p">:</span> <span class="s2">&quot;server&quot;</span><span class="p">,</span>  
+        <span class="n">message</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">response</span><span class="p">,</span>  
+        <span class="n">timestamp</span><span class="p">:</span> <span class="n">new</span> <span class="n">Date</span><span class="p">()</span><span class="o">.</span><span class="n">toLocaleTimeString</span><span class="p">(),</span>  
+      <span class="p">},</span>  
+    <span class="p">]);</span>  
+  <span class="p">}</span>  
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">onclose</span></code>is triggered when the WebSocket connection is closed. In the callback, the component checks for a specific
+close code (<code class="docutils literal notranslate"><span class="pre">4000</span></code>) to display a warning toast and update the component states accordingly. It also logs the close
+event:</p>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>websocket.current.onclose = (event) =&gt; {  
+  if (event.code === 4000) {  
+    toast.warning(  
+      &quot;Selected collection&#39;s model is unavailable. Was it created properly?&quot;  
+    );  
+    setError(true);  
+    setConnecting(false);  
+    setAwaitingMessage(false);  
+  }  
+  console.log(&quot;WebSocket closed:&quot;, event);  
+};
+</pre></div>
+</div>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">onerror</span></code> is triggered when an error occurs with the WebSocket connection. In the callback, the component
+updates the states to reflect the error and logs the error event:</p>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>    websocket.current.onerror = (event) =&gt; {
+      setError(true);
+      setConnecting(false);
+      setAwaitingMessage(false);
+
+      console.error(&quot;WebSocket error:&quot;, event);
+    };
+</pre></div>
+</div>
+</div>
+<div class="section" id="rendering-our-chat-messages">
+<h4>Rendering our Chat Messages<a class="headerlink" href="#rendering-our-chat-messages" title="此标题的永久链接"></a></h4>
+<p>In the <code class="docutils literal notranslate"><span class="pre">ChatView</span></code> component, the layout is determined using CSS styling and Material-UI components. The main layout
+consists of a container with a <code class="docutils literal notranslate"><span class="pre">flex</span></code> display and a column-oriented <code class="docutils literal notranslate"><span class="pre">flexDirection</span></code>. This ensures that the content
+within the container is arranged vertically.</p>
+<p>There are three primary sections within the layout:</p>
+<ol class="arabic simple">
+<li><p>The chat messages area: This section takes up most of the available space and displays a list of messages exchanged
+between the user and the server. It has an overflow-y set to ‘auto’, which allows scrolling when the content
+overflows the available space. The messages are rendered using the <code class="docutils literal notranslate"><span class="pre">ChatMessage</span></code> component for each message and
+a <code class="docutils literal notranslate"><span class="pre">ChatMessageLoading</span></code> component to show the loading state while waiting for a server response.</p></li>
+<li><p>The divider: A Material-UI <code class="docutils literal notranslate"><span class="pre">Divider</span></code> component is used to separate the chat messages area from the input area,
+creating a clear visual distinction between the two sections.</p></li>
+<li><p>The input area: This section is located at the bottom and allows the user to type and send messages. It contains
+a <code class="docutils literal notranslate"><span class="pre">TextField</span></code> component from Material-UI, which is set to accept multiline input with a maximum of 2 rows. The input
+area also includes a <code class="docutils literal notranslate"><span class="pre">Button</span></code> component to send the message. The user can either click the &quot;Send&quot; button or press &quot;
+Enter&quot; on their keyboard to send the message.</p></li>
+</ol>
+<p>The user inputs accepted in the <code class="docutils literal notranslate"><span class="pre">ChatView</span></code> component are text messages that the user types in the <code class="docutils literal notranslate"><span class="pre">TextField</span></code>. The
+component processes these text inputs and sends them to the server through the WebSocket connection.</p>
+</div>
+</div>
+</div>
+<div class="section" id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="此标题的永久链接"></a></h2>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="此标题的永久链接"></a></h3>
+<p>To deploy the app, you're going to need Docker and Docker Compose installed. If you're on Ubuntu or another, common
+Linux distribution, DigitalOcean has
+a <a class="reference external" href="https://www.digitalocean.com/community/tutorial_collections/how-to-install-and-use-docker">great Docker tutorial</a> and
+another great tutorial
+for <a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04">Docker Compose</a>
+you can follow. If those don't work for you, try
+the <a class="reference external" href="https://docs.docker.com/engine/install/">official docker documentation.</a></p>
+</div>
+<div class="section" id="build-and-deploy">
+<h3>Build and Deploy<a class="headerlink" href="#build-and-deploy" title="此标题的永久链接"></a></h3>
+<p>The project is based on django-cookiecutter, and it’s pretty easy to get it deployed on a VM and configured to serve
+HTTPs traffic for a specific domain. The configuration is somewhat involved, however — not because of this project, but
+it’s just a fairly involved topic to configure your certificates, DNS, etc.</p>
+<p>For the purposes of this guide, let’s just get running locally. Perhaps we’ll release a guide on production deployment.
+In the meantime, check out
+the <a class="reference external" href="https://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html">Django Cookiecutter project docs</a>
+for starters.</p>
+<p>This guide assumes your goal is to get the application up and running for use. If you want to develop, most likely you
+won’t want to launch the compose stack with the — profiles fullstack flag and will instead want to launch the react
+frontend using the node development server.</p>
+<p>To deploy, first clone the repo:</p>
+<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/yourusername/delphic.git
+</pre></div>
+</div>
+<p>Change into the project directory:</p>
+<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>cd delphic
+</pre></div>
+</div>
+<p>Copy the sample environment files:</p>
+<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>mkdir -p ./.envs/.local/  
+cp -a ./docs/sample_envs/local/.frontend ./frontend  
+cp -a ./docs/sample_envs/local/.django ./.envs/.local  
+cp -a ./docs/sample_envs/local/.postgres ./.envs/.local
+</pre></div>
+</div>
+<p>Edit the <code class="docutils literal notranslate"><span class="pre">.django</span></code> and <code class="docutils literal notranslate"><span class="pre">.postgres</span></code> configuration files to include your OpenAI API key and set a unique password for your
+database user. You can also set the response token limit in the .django file or switch which OpenAI model you want to
+use. GPT4 is supported, assuming you’re authorized to access it.</p>
+<p>Build the docker compose stack with the <code class="docutils literal notranslate"><span class="pre">--profiles</span> <span class="pre">fullstack</span></code> flag:</p>
+<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>sudo docker-compose --profiles fullstack -f local.yml build
+</pre></div>
+</div>
+<p>The fullstack flag instructs compose to build a docker container from the frontend folder and this will be launched
+along with all of the needed, backend containers. It takes a long time to build a production React container, however,
+so we don’t recommend you develop this way. Follow
+the <a class="reference external" href="https://github.com/JSv4/Delphic#development">instructions in the project readme.md</a> for development environment
+setup instructions.</p>
+<p>Finally, bring up the application:</p>
+<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>sudo docker-compose -f local.yml up
+</pre></div>
+</div>
+<p>Now, visit <code class="docutils literal notranslate"><span class="pre">localhost:3000</span></code> in your browser to see the frontend, and use the Delphic application locally.</p>
+</div>
+</div>
+<div class="section" id="using-the-application">
+<h2>Using the Application<a class="headerlink" href="#using-the-application" title="此标题的永久链接"></a></h2>
+<div class="section" id="setup-users">
+<h3>Setup Users<a class="headerlink" href="#setup-users" title="此标题的永久链接"></a></h3>
+<p>In order to actually use the application (at the moment, we intend to make it possible to share certain models with
+unauthenticated users), you need a login. You can use either a superuser or non-superuser. In either case, someone needs
+to first create a superuser using the console:</p>
+<p><strong>Why set up a Django superuser?</strong> A Django superuser has all the permissions in the application and can manage all
+aspects of the system, including creating, modifying, and deleting users, collections, and other data. Setting up a
+superuser allows you to fully control and manage the application.</p>
+<p><strong>How to create a Django superuser:</strong></p>
+<p>1 Run the following command to create a superuser:</p>
+<p>sudo docker-compose -f local.yml run django python manage.py createsuperuser</p>
+<p>2 You will be prompted to provide a username, email address, and password for the superuser. Enter the required
+information.</p>
+<p><strong>How to create additional users using Django admin:</strong></p>
+<ol class="arabic simple">
+<li><p>Start your Delphic application locally following the deployment instructions.</p></li>
+<li><p>Visit the Django admin interface by navigating to <code class="docutils literal notranslate"><span class="pre">http://localhost:8000/admin</span></code> in your browser.</p></li>
+<li><p>Log in with the superuser credentials you created earlier.</p></li>
+<li><p>Click on “Users” under the “Authentication and Authorization” section.</p></li>
+<li><p>Click on the “Add user +” button in the top right corner.</p></li>
+<li><p>Enter the required information for the new user, such as username and password. Click “Save” to create the user.</p></li>
+<li><p>To grant the new user additional permissions or make them a superuser, click on their username in the user list,
+scroll down to the “Permissions” section, and configure their permissions accordingly. Save your changes.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="sql_guide.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>下一页</span>
+                </div>
+                <div class="title">A Guide to LlamaIndex + Structured Data</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="fullstack_app_guide.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>上一页</span>
+                </div>
+                
+                <div class="title">A Guide to Building a Full-Stack Web App with LLamaIndex</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Jerry Liu
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link" href="https://readthedocs.org/projects/llama-index" aria-label="On Read the Docs">
+                <svg x="0px" y="0px" viewBox="-125 217 360 360" xml:space="preserve">
+                  <path fill="currentColor" d="M39.2,391.3c-4.2,0.6-7.1,4.4-6.5,8.5c0.4,3,2.6,5.5,5.5,6.3 c0,0,18.5,6.1,50,8.7c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8c-0.1-4.2-3.6-7.5-7.8-7.4c-0.5,0-1,0.1-1.5,0.2 c0,0-28.1,3.5-50.9,1.6c-30.1-2.4-46.5-7.9-46.5-7.9C41.7,391.3,40.4,391.1,39.2,391.3z M39.2,353.6c-4.2,0.6-7.1,4.4-6.5,8.5 c0.4,3,2.6,5.5,5.5,6.3c0,0,18.5,6.1,50,8.7c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8c-0.1-4.2-3.6-7.5-7.8-7.4 c-0.5,0-1,0.1-1.5,0.2c0,0-28.1,3.5-50.9,1.6c-30.1-2.4-46.5-7.9-46.5-7.9C41.7,353.6,40.4,353.4,39.2,353.6z M39.2,315.9 c-4.2,0.6-7.1,4.4-6.5,8.5c0.4,3,2.6,5.5,5.5,6.3c0,0,18.5,6.1,50,8.7c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8 c-0.1-4.2-3.6-7.5-7.8-7.4c-0.5,0-1,0.1-1.5,0.2c0,0-28.1,3.5-50.9,1.6c-30.1-2.4-46.5-7.9-46.5-7.9 C41.7,315.9,40.4,315.8,39.2,315.9z M39.2,278.3c-4.2,0.6-7.1,4.4-6.5,8.5c0.4,3,2.6,5.5,5.5,6.3c0,0,18.5,6.1,50,8.7 c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8c-0.1-4.2-3.6-7.5-7.8-7.4c-0.5,0-1,0.1-1.5,0.2c0,0-28.1,3.5-50.9,1.6 c-30.1-2.4-46.5-7.9-46.5-7.9C41.7,278.2,40.4,278.1,39.2,278.3z M-13.6,238.5c-39.6,0.3-54.3,12.5-54.3,12.5v295.7 c0,0,14.4-12.4,60.8-10.5s55.9,18.2,112.9,19.3s71.3-8.8,71.3-8.8l0.8-301.4c0,0-25.6,7.3-75.6,7.7c-49.9,0.4-61.9-12.7-107.7-14.2 C-8.2,238.6-10.9,238.5-13.6,238.5z M19.5,257.8c0,0,24,7.9,68.3,10.1c37.5,1.9,75-3.7,75-3.7v267.9c0,0-19,10-66.5,6.6 C59.5,536.1,19,522.1,19,522.1L19.5,257.8z M-3.6,264.8c4.2,0,7.7,3.4,7.7,7.7c0,4.2-3.4,7.7-7.7,7.7c0,0-12.4,0.1-20,0.8 c-12.7,1.3-21.4,5.9-21.4,5.9c-3.7,2-8.4,0.5-10.3-3.2c-2-3.7-0.5-8.4,3.2-10.3c0,0,0,0,0,0c0,0,11.3-6,27-7.5 C-16,264.9-3.6,264.8-3.6,264.8z M-11,302.6c4.2-0.1,7.4,0,7.4,0c4.2,0.5,7.2,4.3,6.7,8.5c-0.4,3.5-3.2,6.3-6.7,6.7 c0,0-12.4,0.1-20,0.8c-12.7,1.3-21.4,5.9-21.4,5.9c-3.7,2-8.4,0.5-10.3-3.2c-2-3.7-0.5-8.4,3.2-10.3c0,0,11.3-6,27-7.5 C-20.5,302.9-15.2,302.7-11,302.6z M-3.6,340.2c4.2,0,7.7,3.4,7.7,7.7s-3.4,7.7-7.7,7.7c0,0-12.4-0.1-20,0.7 c-12.7,1.3-21.4,5.9-21.4,5.9c-3.7,2-8.4,0.5-10.3-3.2c-2-3.7-0.5-8.4,3.2-10.3c0,0,11.3-6,27-7.5C-16,340.1-3.6,340.2-3.6,340.2z" />
+                </svg>
+              </a><a class="muted-link" href="https://github.com/stephenzhao/llama_index" aria-label="On GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">A Guide to Building a Full-Stack LlamaIndex Web App with Delphic</a><ul>
+<li><a class="reference internal" href="#what-we-re-building">What We're Building</a></li>
+<li><a class="reference internal" href="#architectural-overview">Architectural Overview</a></li>
+<li><a class="reference internal" href="#system-requirements">System Requirements</a></li>
+<li><a class="reference internal" href="#django-backend">Django Backend</a><ul>
+<li><a class="reference internal" href="#project-directory-overview">Project Directory Overview</a></li>
+<li><a class="reference internal" href="#database-models">Database Models</a></li>
+<li><a class="reference internal" href="#django-ninja-api">Django Ninja API</a></li>
+<li><a class="reference internal" href="#intro-to-websockets">Intro to Websockets</a></li>
+<li><a class="reference internal" href="#websocket-handler">Websocket Handler</a><ul>
+<li><a class="reference internal" href="#websocket-connect-listener">Websocket connect listener</a></li>
+<li><a class="reference internal" href="#websocket-disconnect-listener">Websocket disconnect listener</a></li>
+<li><a class="reference internal" href="#websocket-receive-listener">Websocket receive listener</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#react-frontend">React Frontend</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#frontend-project-structure">Frontend Project Structure</a></li>
+<li><a class="reference internal" href="#grabbing-collections-from-the-backend">Grabbing Collections from the Backend</a></li>
+<li><a class="reference internal" href="#displaying-collections">Displaying Collections</a></li>
+<li><a class="reference internal" href="#chat-view-component">Chat View Component</a><ul>
+<li><a class="reference internal" href="#chat-websocket-client">Chat Websocket Client</a></li>
+<li><a class="reference internal" href="#rendering-our-chat-messages">Rendering our Chat Messages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deployment">Deployment</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#build-and-deploy">Build and Deploy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-application">Using the Application</a><ul>
+<li><a class="reference internal" href="#setup-users">Setup Users</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script async="async" src="/_/static/javascript/readthedocs-doc-embed.js"></script>
+    <script src="../../_static/js/mendablesearch.js"></script>
+    </body>
+</html>

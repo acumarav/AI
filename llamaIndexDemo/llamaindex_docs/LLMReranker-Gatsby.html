@@ -1,0 +1,1135 @@
+<!doctype html>
+<html class="no-js" lang="zh">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="索引" href="../../genindex.html" /><link rel="search" title="搜索" href="../../search.html" /><link rel="next" title="Optimizers" href="../../how_to/query/optimizers.html" /><link rel="prev" title="Cohere Rerank" href="CohereRerank.html" />
+        <link rel="canonical" href="https://llama-index.readthedocs.io/zh/latest/examples/node_postprocessor/LLMReranker-Gatsby.html" />
+
+    <!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
+        <title>LLM Reranker Demonstration - LlamaIndex 🦙 0.6.8</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="/_/static/css/badge_only.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style>
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "build_date": "2023-05-30T10:47:45Z", "builder": "sphinx", "canonical_url": null, "commit": "9db7c88b", "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "zh", "page": "examples/node_postprocessor/LLMReranker-Gatsby", "programming_language": "py", "project": "llama-index", "proxied_api_host": "/_", "source_suffix": ".ipynb", "subprojects": {}, "theme": "furo", "user_analytics_code": "", "version": "stable"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">LlamaIndex 🦙 0.6.8
+</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">LlamaIndex 🦙 0.6.8
+</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="搜索" name="q" aria-label="搜索">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/installation.html">Installation and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/starter_example.html">Starter Tutorial</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../guides/primer.html">A Primer to using LlamaIndex</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/primer/usage_pattern.html">LlamaIndex Usage Pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/primer/index_guide.html">How Each Index Works</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../guides/tutorials.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/tutorials/building_a_chatbot.html">💬🤖 How to Build a Chatbot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/tutorials/fullstack_app_guide.html">A Guide to Building a Full-Stack Web App with LLamaIndex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/tutorials/fullstack_with_delphic.html">A Guide to Building a Full-Stack LlamaIndex Web App with Delphic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/tutorials/sql_guide.html">A Guide to LlamaIndex + Structured Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/tutorials/terms_definitions_tutorial.html">A Guide to Extracting Terms and Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/tutorials/unified_query.html">A Guide to Creating a Unified Query Framework over your Indexes</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://medium.com/@jerryjliu98/how-unstructured-and-llamaindex-can-help-bring-the-power-of-llms-to-your-own-data-3657d063e30d">SEC 10k Analysis</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://colab.research.google.com/drive/16QMQePkONNlDpgiltOi7oRQgmB8dU5fl?usp=sharing">Using LlamaIndex with Local Models</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../use_cases/queries.html">Queries over your Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../use_cases/apps.html">Integrations into LLM Applications</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Key Components</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/data_connectors.html">🔌 Data Connectors (LlamaHub)</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/DeepLakeReader.html">DeepLake Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/QdrantDemo.html">Qdrant Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/DiscordDemo.html">Discord Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/MongoDemo.html">MongoDB Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/ChromaDemo.html">Chroma Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/MyScaleReaderDemo.html">MyScale Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/FaissDemo.html">Faiss Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/ObsidianReaderDemo.html">Obsidian Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/SlackDemo.html">Slack Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/WebPageDemo.html">Web Page Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/PineconeDemo.html">Pinecone Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/MboxReaderDemo.html">Mbox Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/MilvusReaderDemo.html">MilvusReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/NotionDemo.html">Notion Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/GithubRepositoryReaderDemo.html">Github Repo Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/GoogleDocsDemo.html">Google Docs Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/DatabaseReaderDemo.html">Database Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/TwitterDemo.html">Twitter Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/WeaviateDemo.html">Weaviate Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_connectors/MakeDemo.html">Make Reader</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/indices.html">🗃️ Index Structures</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/primer/index_guide.html">How Each Index Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/index_structs/update.html">Updating an Index</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/index_structs/composability.html">Composability</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../composable_indices/ComposableIndices-Prior.html">Composable Graph Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../composable_indices/ComposableIndices-Weaviate.html">Composable Graph with Weaviate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../composable_indices/ComposableIndices.html">Composable Graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/index_structs/vector_store_guide.html">Vector Store Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index_structs/knowledge_graph/KnowledgeGraphDemo.html">Knowledge Graph Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index_structs/struct_indices/PandasIndexDemo.html">Pandas Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index_structs/struct_indices/SQLIndexDemo.html">SQL Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index_structs/doc_summary/DocSummary.html">Document Summary Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../how_to/query_interface.html">🔍 Query Interface</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../guides/primer/usage_pattern.html">LlamaIndex Usage Pattern</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/index_structs/composability.html">Composability</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../composable_indices/ComposableIndices-Prior.html">Composable Graph Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../composable_indices/ComposableIndices-Weaviate.html">Composable Graph with Weaviate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../composable_indices/ComposableIndices.html">Composable Graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/query/query_transformations.html">Query Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../query_transformations/HyDEQueryTransformDemo.html">HyDE Query Transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../query_transformations/SimpleIndexDemo-multistep.html">Multi-Step Decompose Query Transform</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../../how_to/query/second_stage.html">Second-Stage Processing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NodePostprocessorDemo.html">Forward/Backward Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RecencyPostprocessorDemo.html">Recency Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimeWeightedPostprocessorDemo.html">Time-Weighted Rerank</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PII.html">PII Masking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CohereRerank.html">Cohere Rerank</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">LLM Reranker Demonstration</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/query/optimizers.html">Optimizers</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="OptimizerDemo.html">Sentence Embedding Optimizer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/query/response_synthesis.html">Response Synthesis</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/query/query_engines.html">Query Engines</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../query_engine/CustomRetrievers.html">Retriever Query Engine with Custom Retrievers - Simple Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../query_engine/RouterQueryEngine.html">Router Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../query_engine/RetrieverRouterQueryEngine.html">Retriever Router Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../query_engine/JointQASummary.html">Joint QA Summary Query Engine</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/customization.html">🛠️ Customization</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/customization/custom_llms.html">Defining LLMs</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../customization/llms/AzureOpenAI.html">Azure OpenAI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../customization/llms/SimpleIndexDemo-Huggingface_camel.html">HuggingFace LLM - Camel-5b</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../customization/llms/SimpleIndexDemo-Huggingface_stablelm.html">HuggingFace LLM - StableLM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../customization/llms/SimpleIndexDemo-ChatGPT.html">ChatGPT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/customization/custom_prompts.html">Defining Prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/customization/embeddings.html">Embedding support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/customization.html">Customizing Storage</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/customization/streaming.html">Streaming</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../customization/streaming/SimpleIndexDemo-streaming.html">Streaming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/analysis.html">🧠 Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/analysis/cost_analysis.html">Cost Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/TokenPredictor.html">Token Predictors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/analysis/playground.html">Playground</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/PlaygroundDemo.html">Playground</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/output_parsing.html">🔢 Output Parsing</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../output_parsing/GuardrailsDemo.html">Guardrails Output Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../output_parsing/LangchainOutputParserDemo.html">Langchain Output Parsing</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/evaluation/evaluation.html">🔬 Evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/TestNYC-Evaluation.html">Response Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/TestNYC-Evaluation-Query.html">Query Response Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/QuestionGeneration.html">Question Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/integrations.html">⛓️ Integrations</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/integrations/vector_stores.html">Using Vector Stores</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/SimpleIndexDemo.html">Simple Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/RedisIndexDemo.html">Redis Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/RedisIndexDemo.html#query-the-data">Query the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/QdrantIndexDemo.html">Qdrant Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/FaissIndexDemo.html">Faiss Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/DeepLakeIndexDemo.html">DeepLake Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/MyScaleIndexDemo.html">MyScale Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/MetalIndexDemo.html">Metal Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/WeaviateIndexDemo.html">Weaviate Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/OpensearchDemo.html">Using as a vector index.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/PineconeIndexDemo.html">Pinecone Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/ChromaIndexDemo.html">Chroma Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/LanceDBIndexDemo.html">LanceDB Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/MilvusIndexDemo.html">Milvus Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/WeaviateIndexDemo-Hybrid.html">Weaviate Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/PineconeIndexDemo-Hybrid.html">Pinecone Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/AsyncIndexCreationDemo.html">Simple Vector Store - Async Index Creation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/integrations/chatgpt_plugins.html">ChatGPT Plugin Integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/integrations/using_with_langchain.html">Using with Langchain 🦜🔗</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/callbacks.html">📞 Callbacks</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../callbacks/LlamaDebugHandler.html">Llama Debug Handler Demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../callbacks/AimCallback.html">AimCallback Demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/callbacks.html">Callbacks</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how_to/storage.html">💾 Storage</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/save_load.html">Persisting &amp; Loading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/customization.html">Customizing Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/docstores.html">Document Stores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/index_stores.html">Index Stores</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../how_to/storage/vector_stores.html">Vector Stores</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/SimpleIndexDemo.html">Simple Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/QdrantIndexDemo.html">Qdrant Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/FaissIndexDemo.html">Faiss Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/DeepLakeIndexDemo.html">DeepLake Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/MyScaleIndexDemo.html">MyScale Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/MetalIndexDemo.html">Metal Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/WeaviateIndexDemo.html">Weaviate Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/OpensearchDemo.html">Using as a vector index.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/PineconeIndexDemo.html">Pinecone Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/ChromaIndexDemo.html">Chroma Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/LanceDBIndexDemo.html">LanceDB Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/MilvusIndexDemo.html">Milvus Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/RedisIndexDemo.html">Redis Vector Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/RedisIndexDemo.html#query-the-data">Query the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/WeaviateIndexDemo-Hybrid.html">Weaviate Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/PineconeIndexDemo-Hybrid.html">Pinecone Vector Store - Hybrid Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vector_stores/AsyncIndexCreationDemo.html">Simple Vector Store - Async Index Creation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../how_to/storage/kv_stores.html">Key-Value Stores</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/indices.html">Indices</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/list.html">List Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/table.html">Table Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/tree.html">Tree Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/vector_store.html">Vector Store Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/struct_store.html">Structured Store Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/kg.html">Knowledge Graph Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/indices/empty.html">Empty Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/query.html">Querying an Index</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/query/retrievers.html">Retrievers</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/empty.html">Empty Index Retriever</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/kg.html">Knowledge Graph Retriever</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/list.html">List Retriever</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/table.html">Keyword Table Retrievers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/tree.html">Tree Retrievers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/vector_store.html">Vector Store Retrievers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/retrievers/transform.html">Transform Retriever</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/query/response_synthesizer.html">Response Synthesizer</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/query/query_engines.html">Query Engines</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/graph_query_engine.html">Graph Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/multistep_query_engine.html">Multistep Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/retriever_query_engine.html">Retriever Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/transform_query_engine.html">Transform Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/router_query_engine.html">Router Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/sql_query_engine.html">SQL Query Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/query/query_engines/pandas_query_engine.html">Pandas Query Engine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/query/query_bundle.html">Query Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/query/query_transform.html">Query Transform</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/llm_predictor.html">LLM Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/node_postprocessor.html">Node Postprocessor</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/storage.html">Storage Context</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/docstore.html">Document Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/index_store.html">Index Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/vector_store.html">Vector Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/kv_store.html">KV Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/storage/indices_save_load.html">Loading Indices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/composability.html">Composability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/readers.html">Data Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/prompts.html">Prompt Templates</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/service_context.html">Service Context</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/embeddings.html">Embeddings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/llm_predictor.html">LLMPredictor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/prompt_helper.html">PromptHelper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/service_context/llama_logger.html">Llama Logger 🪵</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/optimizers.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/callbacks.html">Callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/struct_store.html">Structured Index Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/response.html">Response</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/playground.html">Playground</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/node_parser.html">Node Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/example_notebooks.html">Example Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/langchain_integrations/base.html">Langchain Integrations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/app_showcase.html">😎 App Showcase</a></li>
+</ul>
+
+</div>
+
+<div
+  id="furo-sidebar-ad-placement"
+  class="flat"
+  data-ea-publisher="readthedocs"
+  data-ea-type="readthedocs-sidebar"
+  data-ea-manual="true"
+></div>
+</div>
+
+<div id="furo-readthedocs-versions" class="rst-versions" data-toggle="rst-versions" role="note" aria-label="版本" tabindex="0">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book">&nbsp;</span>
+    v: stable
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>版本</dt>
+      
+        <dd><a href="/zh/latest/">latest</a></dd>
+      
+        <dd><a href="/zh/stable/">stable</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>下载</dt>
+      
+    </dl>
+    <dl>
+      
+      <dt>托管于 Read the Docs</dt>
+        <dd>
+          <a href="//readthedocs.org/projects/llama-index/?fromdocs=llama-index">项目主页</a>
+        </dd>
+        <dd>
+          <a href="//readthedocs.org/builds/llama-index/?fromdocs=llama-index">构建</a>
+        </dd>
+    </dl>
+  </div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+
+  
+  <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/stephenzhao/llama_index/edit/9db7c88b6cacb738fa655d15efa8494cb1c7cab2/docs/examples/node_postprocessor/LLMReranker-Gatsby.ipynb" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="section" id="llm-reranker-demonstration">
+<h1>LLM Reranker Demonstration<a class="headerlink" href="#llm-reranker-demonstration" title="此标题的永久链接"></a></h1>
+<p>This tutorial showcases how to do a two-stage pass for retrieval. Use embedding-based retrieval with a high top-k value
+in order to maximize recall and get a large set of candidate items. Then, use LLM-based retrieval
+to dynamically select the nodes that are actually relevant to the query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nest_asyncio</span>
+<span class="n">nest_asyncio</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">llama_index</span> <span class="kn">import</span> <span class="n">GPTVectorStoreIndex</span><span class="p">,</span> <span class="n">SimpleDirectoryReader</span><span class="p">,</span> <span class="n">ServiceContext</span><span class="p">,</span> <span class="n">LLMPredictor</span>
+<span class="kn">from</span> <span class="nn">llama_index.indices.postprocessor</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">LLMRerank</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">display</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:numexpr.utils:Note: NumExpr detected 12 cores but &quot;NUMEXPR_MAX_THREADS&quot; not set, so enforcing safe limit of 8.
+Note: NumExpr detected 12 cores but &quot;NUMEXPR_MAX_THREADS&quot; not set, so enforcing safe limit of 8.
+INFO:numexpr.utils:NumExpr defaulting to 8 threads.
+NumExpr defaulting to 8 threads.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jerryliu/Programming/gpt_index/.venv/lib/python3.10/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="load-data-build-index">
+<h2>Load Data, Build Index<a class="headerlink" href="#load-data-build-index" title="此标题的永久链接"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># LLM Predictor (gpt-3.5-turbo) + service context</span>
+<span class="n">llm_predictor</span> <span class="o">=</span> <span class="n">LLMPredictor</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">))</span>
+<span class="n">service_context</span> <span class="o">=</span> <span class="n">ServiceContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">llm_predictor</span><span class="o">=</span><span class="n">llm_predictor</span><span class="p">,</span> <span class="n">chunk_size_limit</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:llama_index.llm_predictor.base:Unknown max input size for gpt-3.5-turbo, using defaults.
+Unknown max input size for gpt-3.5-turbo, using defaults.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load documents</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="s1">&#39;../../../examples/gatsby/data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">documents</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">index</span> <span class="o">=</span> <span class="n">GPTVectorStoreIndex</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">,</span> <span class="n">service_context</span><span class="o">=</span><span class="n">service_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:llama_index.token_counter.token_counter:&gt; [build_index_from_nodes] Total LLM token usage: 0 tokens
+&gt; [build_index_from_nodes] Total LLM token usage: 0 tokens
+INFO:llama_index.token_counter.token_counter:&gt; [build_index_from_nodes] Total embedding token usage: 49266 tokens
+&gt; [build_index_from_nodes] Total embedding token usage: 49266 tokens
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="retrieval">
+<h2>Retrieval<a class="headerlink" href="#retrieval" title="此标题的永久链接"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llama_index.retrievers</span> <span class="kn">import</span> <span class="n">VectorIndexRetriever</span>
+<span class="kn">from</span> <span class="nn">llama_index.indices.query.schema</span> <span class="kn">import</span> <span class="n">QueryBundle</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_retrieved_nodes</span><span class="p">(</span><span class="n">query_str</span><span class="p">,</span> <span class="n">vector_top_k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reranker_top_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">with_reranker</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">query_bundle</span> <span class="o">=</span> <span class="n">QueryBundle</span><span class="p">(</span><span class="n">query_str</span><span class="p">)</span>
+    <span class="c1"># configure retriever</span>
+    <span class="n">retriever</span> <span class="o">=</span> <span class="n">VectorIndexRetriever</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> 
+        <span class="n">similarity_top_k</span><span class="o">=</span><span class="n">vector_top_k</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">retrieved_nodes</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">query_bundle</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">with_reranker</span><span class="p">:</span>
+        <span class="c1"># configure reranker</span>
+        <span class="n">reranker</span> <span class="o">=</span> <span class="n">LLMRerank</span><span class="p">(</span><span class="n">choice_batch_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="n">reranker_top_n</span><span class="p">,</span> <span class="n">service_context</span><span class="o">=</span><span class="n">service_context</span><span class="p">)</span>
+        <span class="n">retrieved_nodes</span> <span class="o">=</span> <span class="n">reranker</span><span class="o">.</span><span class="n">postprocess_nodes</span><span class="p">(</span><span class="n">retrieved_nodes</span><span class="p">,</span> <span class="n">query_bundle</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">retrieved_nodes</span>
+
+
+<span class="k">def</span> <span class="nf">pretty_print</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">display</span><span class="p">(</span> <span class="n">HTML</span><span class="p">(</span> <span class="n">df</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">,</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">visualize_retrieved_nodes</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">result_dicts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Score&quot;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="s2">&quot;Text&quot;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="n">result_dicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_dict</span><span class="p">)</span>
+        
+    <span class="n">pretty_print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result_dicts</span><span class="p">))</span>
+    <span class="c1"># print_text(Score</span>
+    <span class="c1">#     f&#39;\n\n****Score****: {node.score}\n****Node text****\n: {node.node.get_text()}&#39;,</span>
+    <span class="c1">#     color=&quot;blue&quot;</span>
+    <span class="c1"># )</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/1r/c3h91d9s49xblwfvz79s78_c0000gn/T/ipykernel_44297/3519340226.py:7: FutureWarning: Passing a negative integer is deprecated in version 1.0 and will not be supported in future version. Instead, use None to not limit the column width.
+  pd.set_option(&#39;display.max_colwidth&#39;, -1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_nodes</span> <span class="o">=</span> <span class="n">get_retrieved_nodes</span><span class="p">(</span>
+    <span class="s2">&quot;Who was driving the car that hit Myrtle?&quot;</span><span class="p">,</span> <span class="n">vector_top_k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">with_reranker</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:llama_index.token_counter.token_counter:&gt; [retrieve] Total LLM token usage: 0 tokens
+&gt; [retrieve] Total LLM token usage: 0 tokens
+INFO:llama_index.token_counter.token_counter:&gt; [retrieve] Total embedding token usage: 10 tokens
+&gt; [retrieve] Total embedding token usage: 10 tokens
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_retrieved_nodes</span><span class="p">(</span><span class="n">new_nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Score</th>
+      <th>Text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.828844</td>
+      <td>and some garrulous man telling over and over what<br>had happened, until it became less and less real even to him and he<br>could tell it no longer, and Myrtle Wilson’s tragic achievement was<br>forgotten. Now I want to go back a little and tell what happened at<br>the garage after we left there the night before.<br><br>They had difficulty in locating the sister, Catherine. She must have<br>broken her rule against drinking that night, for when she arrived she<br>was stupid with liquor and unable to understand that the ambulance had<br>already gone to Flushing. When they convinced her of this, she<br>immediately fainted, as if that was the intolerable part of the<br>affair. Someone, kind or curious, took her in his car and drove her in<br>the wake of her sister’s body.<br><br>Until long after midnight a changing crowd lapped up against the front<br>of the garage, while George Wilson rocked himself back and forth on<br>the couch inside. For a while the door of the office was open, and<br>everyone who came into the garage glanced irresistibly through it.<br>Finally someone said it was a shame, and closed the door. Michaelis<br>and several other men were with him; first, four or five men, later<br>two or three men. Still later Michaelis had to ask the last stranger<br>to wait there fifteen minutes longer, while he went back to his own<br>place and made a pot of coffee. After that, he stayed there alone with<br>Wilson until dawn.<br><br>About three o’clock the quality of Wilson’s incoherent muttering<br>changed—he grew quieter and began to talk about the yellow car. He<br>announced that he had a way of finding out whom the yellow car<br>belonged to, and then he blurted out that a couple of months ago his<br>wife had come from the city with her face bruised and her nose<br>swollen.<br><br>But when he heard himself say this, he flinched and began to cry “Oh,<br>my God!” again in his groaning voice. Michaelis made a clumsy</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.827754</td>
+      <td>she rushed out into the dusk, waving her hands and<br>shouting—before he could move from his door the business was over.<br><br>The “death car” as the newspapers called it, didn’t stop; it came out<br>of the gathering darkness, wavered tragically for a moment, and then<br>disappeared around the next bend. Mavro Michaelis wasn’t even sure of<br>its colour—he told the first policeman that it was light green. The<br>other car, the one going toward New York, came to rest a hundred yards<br>beyond, and its driver hurried back to where Myrtle Wilson, her life<br>violently extinguished, knelt in the road and mingled her thick dark<br>blood with the dust.<br><br>Michaelis and this man reached her first, but when they had torn open<br>her shirtwaist, still damp with perspiration, they saw that her left<br>breast was swinging loose like a flap, and there was no need to listen<br>for the heart beneath. The mouth was wide open and ripped a little at<br>the corners, as though she had choked a little in giving up the<br>tremendous vitality she had stored so long.<br><br>------------------------------------------------------------------------<br><br>We saw the three or four automobiles and the crowd when we were still<br>some distance away.<br><br>“Wreck!” said Tom. “That’s good. Wilson’ll have a little business at<br>last.”<br><br>He slowed down, but still without any intention of stopping, until, as<br>we came nearer, the hushed, intent faces of the people at the garage<br>door made him automatically put on the brakes.<br><br>“We’ll take a look,” he said doubtfully, “just a look.”<br><br>I became aware now of a hollow, wailing sound which issued incessantly<br>from the garage, a sound which as we got out of the coupé and walked<br>toward the door resolved itself into the words “Oh, my God!” uttered<br>over and over in a gasping</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.826390</td>
+      <td>went on, “and left the car in<br>my garage. I don’t think anybody saw us, but of course I can’t be<br>sure.”<br><br>I disliked him so much by this time that I didn’t find it necessary to<br>tell him he was wrong.<br><br>“Who was the woman?” he inquired.<br><br>“Her name was Wilson. Her husband owns the garage. How the devil did<br>it happen?”<br><br>“Well, I tried to swing the wheel—” He broke off, and suddenly I<br>guessed at the truth.<br><br>“Was Daisy driving?”<br><br>“Yes,” he said after a moment, “but of course I’ll say I was. You see,<br>when we left New York she was very nervous and she thought it would<br>steady her to drive—and this woman rushed out at us just as we were<br>passing a car coming the other way. It all happened in a minute, but<br>it seemed to me that she wanted to speak to us, thought we were<br>somebody she knew. Well, first Daisy turned away from the woman toward<br>the other car, and then she lost her nerve and turned back. The second<br>my hand reached the wheel I felt the shock—it must have killed her<br>instantly.”<br><br>“It ripped her open—”<br><br>“Don’t tell me, old sport.” He winced. “Anyhow—Daisy stepped on it. I<br>tried to make her stop, but she couldn’t, so I pulled on the emergency<br>brake. Then she fell over into my lap and I drove on.<br><br>“She’ll be all right tomorrow,” he said presently. “I’m just going to<br>wait here and see if he tries to bother her about that unpleasantness<br>this afternoon. She’s locked herself into her room, and if he tries<br>any brutality she’s going to turn the light out and on again.”<br><br>“He won’t touch</td>
+    </tr>
+  </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_nodes</span> <span class="o">=</span> <span class="n">get_retrieved_nodes</span><span class="p">(</span>
+    <span class="s2">&quot;Who was driving the car that hit Myrtle?&quot;</span><span class="p">,</span> <span class="n">vector_top_k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reranker_top_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">with_reranker</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_retrieved_nodes</span><span class="p">(</span><span class="n">new_nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Score</th>
+      <th>Text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10.0</td>
+      <td>went on, “and left the car in<br>my garage. I don’t think anybody saw us, but of course I can’t be<br>sure.”<br><br>I disliked him so much by this time that I didn’t find it necessary to<br>tell him he was wrong.<br><br>“Who was the woman?” he inquired.<br><br>“Her name was Wilson. Her husband owns the garage. How the devil did<br>it happen?”<br><br>“Well, I tried to swing the wheel—” He broke off, and suddenly I<br>guessed at the truth.<br><br>“Was Daisy driving?”<br><br>“Yes,” he said after a moment, “but of course I’ll say I was. You see,<br>when we left New York she was very nervous and she thought it would<br>steady her to drive—and this woman rushed out at us just as we were<br>passing a car coming the other way. It all happened in a minute, but<br>it seemed to me that she wanted to speak to us, thought we were<br>somebody she knew. Well, first Daisy turned away from the woman toward<br>the other car, and then she lost her nerve and turned back. The second<br>my hand reached the wheel I felt the shock—it must have killed her<br>instantly.”<br><br>“It ripped her open—”<br><br>“Don’t tell me, old sport.” He winced. “Anyhow—Daisy stepped on it. I<br>tried to make her stop, but she couldn’t, so I pulled on the emergency<br>brake. Then she fell over into my lap and I drove on.<br><br>“She’ll be all right tomorrow,” he said presently. “I’m just going to<br>wait here and see if he tries to bother her about that unpleasantness<br>this afternoon. She’s locked herself into her room, and if he tries<br>any brutality she’s going to turn the light out and on again.”<br><br>“He won’t touch</td>
+    </tr>
+  </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_nodes</span> <span class="o">=</span> <span class="n">get_retrieved_nodes</span><span class="p">(</span>
+    <span class="s2">&quot;What did Gatsby want Daisy to do in front of Tom?&quot;</span><span class="p">,</span> <span class="n">vector_top_k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">with_reranker</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:llama_index.token_counter.token_counter:&gt; [retrieve] Total LLM token usage: 0 tokens
+&gt; [retrieve] Total LLM token usage: 0 tokens
+INFO:llama_index.token_counter.token_counter:&gt; [retrieve] Total embedding token usage: 14 tokens
+&gt; [retrieve] Total embedding token usage: 14 tokens
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_retrieved_nodes</span><span class="p">(</span><span class="n">new_nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>****Score****: 0.8647796939111776
+****Node text****
+: got to make your house into a pigsty in order to have any
+friends—in the modern world.”
+
+Angry as I was, as we all were, I was tempted to laugh whenever he
+opened his mouth. The transition from libertine to prig was so
+complete.
+
+“I’ve got something to tell you, old sport—” began Gatsby. But Daisy
+guessed at his intention.
+
+“Please don’t!” she interrupted helplessly. “Please let’s all go
+home. Why don’t we all go home?”
+
+“That’s a good idea,” I got up. “Come on, Tom. Nobody wants a drink.”
+
+“I want to know what Mr. Gatsby has to tell me.”
+
+“Your wife doesn’t love you,” said Gatsby. “She’s never loved you.
+She loves me.”
+
+“You must be crazy!” exclaimed Tom automatically.
+
+Gatsby sprang to his feet, vivid with excitement.
+
+“She never loved you, do you hear?” he cried. “She only married you
+because I was poor and she was tired of waiting for me. It was a
+terrible mistake, but in her heart she never loved anyone except me!”
+
+At this point Jordan and I tried to go, but Tom and Gatsby insisted
+with competitive firmness that we remain—as though neither of them had
+anything to conceal and it would be a privilege to partake vicariously
+of their emotions.
+
+“Sit down, Daisy,” Tom’s voice groped unsuccessfully for the paternal
+note. “What’s been going on? I want to hear all about it.”
+
+“I told you what’s been going on,” said Gatsby. “Going on for five
+years—and you didn’t know.”
+
+Tom turned to Daisy
+
+
+****Score****: 0.8609230717744326
+****Node text****
+: to keep your
+shoes dry?” There was a husky tenderness in his tone … “Daisy?”
+
+“Please don’t.” Her voice was cold, but the rancour was gone from it.
+She looked at Gatsby. “There, Jay,” she said—but her hand as she tried
+to light a cigarette was trembling. Suddenly she threw the cigarette
+and the burning match on the carpet.
+
+“Oh, you want too much!” she cried to Gatsby. “I love you now—isn’t
+that enough? I can’t help what’s past.” She began to sob
+helplessly. “I did love him once—but I loved you too.”
+
+Gatsby’s eyes opened and closed.
+
+“You loved me too?” he repeated.
+
+“Even that’s a lie,” said Tom savagely. “She didn’t know you were
+alive. Why—there’s things between Daisy and me that you’ll never know,
+things that neither of us can ever forget.”
+
+The words seemed to bite physically into Gatsby.
+
+“I want to speak to Daisy alone,” he insisted. “She’s all excited
+now—”
+
+“Even alone I can’t say I never loved Tom,” she admitted in a pitiful
+voice. “It wouldn’t be true.”
+
+“Of course it wouldn’t,” agreed Tom.
+
+She turned to her husband.
+
+“As if it mattered to you,” she said.
+
+“Of course it matters. I’m going to take better care of you from now
+on.”
+
+“You don’t understand,” said Gatsby, with a touch of panic. “You’re
+not going to take care of her any more.”
+
+“I’m not?” Tom opened his eyes wide and
+
+
+****Score****: 0.8555028907426916
+****Node text****
+: shadowed well with awnings, was dark and cool. Daisy and
+Jordan lay upon an enormous couch, like silver idols weighing down
+their own white dresses against the singing breeze of the fans.
+
+“We can’t move,” they said together.
+
+Jordan’s fingers, powdered white over their tan, rested for a moment
+in mine.
+
+“And Mr. Thomas Buchanan, the athlete?” I inquired.
+
+Simultaneously I heard his voice, gruff, muffled, husky, at the hall
+telephone.
+
+Gatsby stood in the centre of the crimson carpet and gazed around with
+fascinated eyes. Daisy watched him and laughed, her sweet, exciting
+laugh; a tiny gust of powder rose from her bosom into the air.
+
+“The rumour is,” whispered Jordan, “that that’s Tom’s girl on the
+telephone.”
+
+We were silent. The voice in the hall rose high with annoyance: “Very
+well, then, I won’t sell you the car at all … I’m under no obligations
+to you at all … and as for your bothering me about it at lunch time, I
+won’t stand that at all!”
+
+“Holding down the receiver,” said Daisy cynically.
+
+“No, he’s not,” I assured her. “It’s a bona-fide deal. I happen to
+know about it.”
+
+Tom flung open the door, blocked out its space for a moment with his
+thick body, and hurried into the room.
+
+“Mr. Gatsby!” He put out his broad, flat hand with well-concealed
+dislike. “I’m glad to see you, sir … Nick …”
+
+“Make us a cold drink,” cried Daisy.
+
+As he left the room again she got up and went over to Gatsby and
+pulled his face
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_nodes</span> <span class="o">=</span> <span class="n">get_retrieved_nodes</span><span class="p">(</span>
+    <span class="s2">&quot;What did Gatsby want Daisy to do in front of Tom?&quot;</span><span class="p">,</span> <span class="n">vector_top_k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reranker_top_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">with_reranker</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:llama_index.token_counter.token_counter:&gt; [retrieve] Total LLM token usage: 0 tokens
+&gt; [retrieve] Total LLM token usage: 0 tokens
+INFO:llama_index.token_counter.token_counter:&gt; [retrieve] Total embedding token usage: 14 tokens
+&gt; [retrieve] Total embedding token usage: 14 tokens
+Doc: 2, Relevance: 10
+No relevant documents found. Please provide a different question.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_retrieved_nodes</span><span class="p">(</span><span class="n">new_nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>****Score****: 10.0
+****Node text****
+: to keep your
+shoes dry?” There was a husky tenderness in his tone … “Daisy?”
+
+“Please don’t.” Her voice was cold, but the rancour was gone from it.
+She looked at Gatsby. “There, Jay,” she said—but her hand as she tried
+to light a cigarette was trembling. Suddenly she threw the cigarette
+and the burning match on the carpet.
+
+“Oh, you want too much!” she cried to Gatsby. “I love you now—isn’t
+that enough? I can’t help what’s past.” She began to sob
+helplessly. “I did love him once—but I loved you too.”
+
+Gatsby’s eyes opened and closed.
+
+“You loved me too?” he repeated.
+
+“Even that’s a lie,” said Tom savagely. “She didn’t know you were
+alive. Why—there’s things between Daisy and me that you’ll never know,
+things that neither of us can ever forget.”
+
+The words seemed to bite physically into Gatsby.
+
+“I want to speak to Daisy alone,” he insisted. “She’s all excited
+now—”
+
+“Even alone I can’t say I never loved Tom,” she admitted in a pitiful
+voice. “It wouldn’t be true.”
+
+“Of course it wouldn’t,” agreed Tom.
+
+She turned to her husband.
+
+“As if it mattered to you,” she said.
+
+“Of course it matters. I’m going to take better care of you from now
+on.”
+
+“You don’t understand,” said Gatsby, with a touch of panic. “You’re
+not going to take care of her any more.”
+
+“I’m not?” Tom opened his eyes wide and
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="query-engine">
+<h2>Query Engine<a class="headerlink" href="#query-engine" title="此标题的永久链接"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span>
+    <span class="n">similarity_top_k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">node_postprocessors</span><span class="o">=</span><span class="p">[</span><span class="n">reranker</span><span class="p">],</span>
+    <span class="n">response_mode</span><span class="o">=</span><span class="s2">&quot;tree_summarize&quot;</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+    <span class="s2">&quot;What did the author do during his time at Y Combinator?&quot;</span><span class="p">,</span> 
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span>
+    <span class="n">similarity_top_k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">response_mode</span><span class="o">=</span><span class="s2">&quot;tree_summarize&quot;</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+    <span class="s2">&quot;What did the author do during his time at Y Combinator?&quot;</span><span class="p">,</span> 
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">retrieval</span> <span class="o">=</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../how_to/query/optimizers.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>下一页</span>
+                </div>
+                <div class="title">Optimizers</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="CohereRerank.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>上一页</span>
+                </div>
+                
+                <div class="title">Cohere Rerank</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Jerry Liu
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link" href="https://readthedocs.org/projects/llama-index" aria-label="On Read the Docs">
+                <svg x="0px" y="0px" viewBox="-125 217 360 360" xml:space="preserve">
+                  <path fill="currentColor" d="M39.2,391.3c-4.2,0.6-7.1,4.4-6.5,8.5c0.4,3,2.6,5.5,5.5,6.3 c0,0,18.5,6.1,50,8.7c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8c-0.1-4.2-3.6-7.5-7.8-7.4c-0.5,0-1,0.1-1.5,0.2 c0,0-28.1,3.5-50.9,1.6c-30.1-2.4-46.5-7.9-46.5-7.9C41.7,391.3,40.4,391.1,39.2,391.3z M39.2,353.6c-4.2,0.6-7.1,4.4-6.5,8.5 c0.4,3,2.6,5.5,5.5,6.3c0,0,18.5,6.1,50,8.7c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8c-0.1-4.2-3.6-7.5-7.8-7.4 c-0.5,0-1,0.1-1.5,0.2c0,0-28.1,3.5-50.9,1.6c-30.1-2.4-46.5-7.9-46.5-7.9C41.7,353.6,40.4,353.4,39.2,353.6z M39.2,315.9 c-4.2,0.6-7.1,4.4-6.5,8.5c0.4,3,2.6,5.5,5.5,6.3c0,0,18.5,6.1,50,8.7c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8 c-0.1-4.2-3.6-7.5-7.8-7.4c-0.5,0-1,0.1-1.5,0.2c0,0-28.1,3.5-50.9,1.6c-30.1-2.4-46.5-7.9-46.5-7.9 C41.7,315.9,40.4,315.8,39.2,315.9z M39.2,278.3c-4.2,0.6-7.1,4.4-6.5,8.5c0.4,3,2.6,5.5,5.5,6.3c0,0,18.5,6.1,50,8.7 c25.3,2.1,54-1.8,54-1.8c4.2-0.1,7.5-3.6,7.4-7.8c-0.1-4.2-3.6-7.5-7.8-7.4c-0.5,0-1,0.1-1.5,0.2c0,0-28.1,3.5-50.9,1.6 c-30.1-2.4-46.5-7.9-46.5-7.9C41.7,278.2,40.4,278.1,39.2,278.3z M-13.6,238.5c-39.6,0.3-54.3,12.5-54.3,12.5v295.7 c0,0,14.4-12.4,60.8-10.5s55.9,18.2,112.9,19.3s71.3-8.8,71.3-8.8l0.8-301.4c0,0-25.6,7.3-75.6,7.7c-49.9,0.4-61.9-12.7-107.7-14.2 C-8.2,238.6-10.9,238.5-13.6,238.5z M19.5,257.8c0,0,24,7.9,68.3,10.1c37.5,1.9,75-3.7,75-3.7v267.9c0,0-19,10-66.5,6.6 C59.5,536.1,19,522.1,19,522.1L19.5,257.8z M-3.6,264.8c4.2,0,7.7,3.4,7.7,7.7c0,4.2-3.4,7.7-7.7,7.7c0,0-12.4,0.1-20,0.8 c-12.7,1.3-21.4,5.9-21.4,5.9c-3.7,2-8.4,0.5-10.3-3.2c-2-3.7-0.5-8.4,3.2-10.3c0,0,0,0,0,0c0,0,11.3-6,27-7.5 C-16,264.9-3.6,264.8-3.6,264.8z M-11,302.6c4.2-0.1,7.4,0,7.4,0c4.2,0.5,7.2,4.3,6.7,8.5c-0.4,3.5-3.2,6.3-6.7,6.7 c0,0-12.4,0.1-20,0.8c-12.7,1.3-21.4,5.9-21.4,5.9c-3.7,2-8.4,0.5-10.3-3.2c-2-3.7-0.5-8.4,3.2-10.3c0,0,11.3-6,27-7.5 C-20.5,302.9-15.2,302.7-11,302.6z M-3.6,340.2c4.2,0,7.7,3.4,7.7,7.7s-3.4,7.7-7.7,7.7c0,0-12.4-0.1-20,0.7 c-12.7,1.3-21.4,5.9-21.4,5.9c-3.7,2-8.4,0.5-10.3-3.2c-2-3.7-0.5-8.4,3.2-10.3c0,0,11.3-6,27-7.5C-16,340.1-3.6,340.2-3.6,340.2z" />
+                </svg>
+              </a><a class="muted-link" href="https://github.com/stephenzhao/llama_index" aria-label="On GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">LLM Reranker Demonstration</a><ul>
+<li><a class="reference internal" href="#load-data-build-index">Load Data, Build Index</a></li>
+<li><a class="reference internal" href="#retrieval">Retrieval</a></li>
+<li><a class="reference internal" href="#query-engine">Query Engine</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script async="async" src="/_/static/javascript/readthedocs-doc-embed.js"></script>
+    <script src="../../_static/js/mendablesearch.js"></script>
+    </body>
+</html>
