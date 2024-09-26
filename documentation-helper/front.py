@@ -2,7 +2,7 @@ from chat import run_llm
 from typing import Set
 import streamlit as st
 from streamlit_chat import message
-from constants import USER_PROMPT_HISTORY, CHAT_ANSWER_HISTORY
+from constants import USER_PROMPT_HISTORY, CHAT_ANSWER_HISTORY, CHAT_HISTORY
 
 
 def create_sources_string(source_urls: Set[str]) -> str:
@@ -22,19 +22,23 @@ if USER_PROMPT_HISTORY not in st.session_state:
     st.session_state[USER_PROMPT_HISTORY] = []
 if CHAT_ANSWER_HISTORY not in st.session_state:
     st.session_state[CHAT_ANSWER_HISTORY] = []
+if CHAT_HISTORY not in st.session_state:
+    st.session_state[CHAT_HISTORY] = []
 
 if prompt:
     with st.spinner("AI engine warm up..."):
-        generated_response = run_llm(query=prompt)
+        generated_response = run_llm(query=prompt, chat_history=st.session_state[CHAT_HISTORY])
         sources = set([doc.metadata["source"] for doc in generated_response["source_documents"]])
 
-        formatted_response = (f"{generated_response['result']} \n\n {create_sources_string(sources)}")
+        #formatted_response = (f"{generated_response['result']} \n\n {create_sources_string(sources)}")
+        formatted_response = (f"{generated_response['answer']} \n\n {create_sources_string(sources)}")
         st.session_state[USER_PROMPT_HISTORY].append(prompt)
         st.session_state[CHAT_ANSWER_HISTORY].append(formatted_response)
+        st.session_state[CHAT_HISTORY].append((prompt, generated_response["answer"]))
         print(formatted_response)
 
 if st.session_state[CHAT_ANSWER_HISTORY]:
-    for previous_response, previous_ask in zip(st.session_state[CHAT_ANSWER_HISTORY], st.session_state[USER_PROMPT_HISTORY]):
+    for previous_response, previous_ask in zip(st.session_state[CHAT_ANSWER_HISTORY],
+                                               st.session_state[USER_PROMPT_HISTORY]):
         message(previous_ask, is_user=True)
-        message(previous_response,is_user=False)
-
+        message(previous_response, is_user=False)
