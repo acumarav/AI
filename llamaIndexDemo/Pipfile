@@ -13,6 +13,7 @@ llama-index-vector-stores-postgres = "*"
 unstructured = "*"
 pgvector = "*"
 psycopg2-binary = "*"
+streamlit = "*"
 
 [dev-packages]
 
